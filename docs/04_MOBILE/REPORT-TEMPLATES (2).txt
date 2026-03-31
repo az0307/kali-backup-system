@@ -1,0 +1,248 @@
+# Report Templates & Documentation
+
+## Pentest Report Structure
+
+### 1. Executive Summary
+```
+# Pentest Report - [Client Name]
+## Date: [DATE]
+## Scope: [SCOPE]
+
+## Overview
+[Brief description of assessment]
+
+## Risk Summary
+| Severity | Count |
+|----------|-------|
+| Critical | X |
+| High | X |
+| Medium | X |
+| Low | X |
+| Info | X |
+
+## Key Findings
+[Top 3-5 issues]
+
+## Recommendations
+[Priority recommendations]
+```
+
+### 2. Technical Findings
+```
+## Finding: [Title]
+### Severity: [Critical/High/Medium/Low/Info]
+### Description:
+[What is the issue]
+
+### Impact:
+[Security impact]
+
+### Proof of Concept:
+```bash
+# Steps to reproduce
+```
+
+### Remediation:
+[How to fix]
+
+### References:
+- CVE-XXXX-XXXX
+- OWASP
+```
+
+### 3. Methodology
+```
+## Phase 1: Information Gathering
+- Passive reconnaissance
+- Active reconnaissance
+
+## Phase 2: Vulnerability Assessment
+- Port scanning
+- Service enumeration
+- Vulnerability identification
+
+## Phase 3: Exploitation
+- Manual exploitation
+- Automated tools
+
+## Phase 4: Post-Exploitation
+- Privilege escalation
+- Data exfiltration
+- Persistence
+```
+
+## Note Templates
+
+### Recon Notes
+```
+# Target: [DOMAIN/IP]
+## Date: [DATE]
+
+### DNS
+- Domain: 
+- Nameservers:
+- SPF/DMARC:
+
+### Ports
+- Open ports:
+
+### Services:
+- Web:
+- SMTP:
+- Other:
+
+### Subdomains:
+- 
+```
+
+### Shell Notes
+```
+# Session: [NAME]
+## Target: [IP]
+## Date: [DATE]
+
+### Access:
+- User: 
+- Privilege:
+
+### Notes:
+- 
+```
+
+### Findings Notes
+```
+## Finding: [NAME]
+### CVSS: [X.X]
+### CVE: [IF APPLICABLE]
+
+Description:
+-
+
+Impact:
+-
+
+Evidence:
+-
+
+Remediation:
+-
+```
+
+## Markdown Templates
+
+### README Template
+```markdown
+# Project Name
+
+## Description
+
+## Installation
+
+## Usage
+
+## Tools Used
+
+## References
+```
+
+### Shell Script Header
+```bash
+#!/bin/bash
+# ====================================================================
+# Script: script-name.sh
+# Purpose: 
+# Author: 
+# Date: 
+# ====================================================================
+
+set -euo pipefail
+```
+
+## Checklist
+
+### Pre-Engagement
+- [ ] Scope defined
+- [ ] Rules of engagement
+- [ ] NDA signed
+- [ ] Contact info
+- [ ] Timeline
+
+### Information Gathering
+- [ ] DNS enumeration
+- [ ] Port scanning
+- [ ] Service identification
+- [ ] Web enumeration
+- [ ] Social media
+
+### Vulnerability Assessment
+- [ ] Automated scans
+- [ ] Manual testing
+- [ ] CVE lookup
+- [ ] Configuration review
+
+### Exploitation
+- [ ] Exploit development
+- [ ] Proof of concept
+- [ ] Session obtained
+
+### Post-Exploitation
+- [ ] Privilege escalation
+- [ ] Persistence established
+- [ ] Data accessed
+- [ ] Lateral movement
+
+### Reporting
+- [ ] Executive summary
+- [ ] Technical findings
+- [ ] Screenshots/evidence
+- [ ] Remediation steps
+- [ ] Timeline
+```
+
+## Links to Bookmark
+
+### Tools
+- https://www.kali.org/tools/
+- https://github.com/enaqx/awesome-pentest
+- https://book.hacktricks.xyz/
+- https://www.offensive-security.com/
+
+### Learning
+- https://www.hackthebox.eu/
+- https://tryhackme.com/
+- https://www.pentesterlab.com/
+- https://overthewire.org/wargames/
+
+### Cheat Sheets
+- https://github.com/jhentler/cheat-sheets
+- https://渗透测试/cheatsheet
+
+### Payloads
+- https://github.com/swisskyrepo/PayloadsAllTheThings
+- https://www.revshells.com/
+- https://PayloadsAllTheThings/
+```
+
+## Report Tools
+
+```bash
+# Markdown to PDF
+pandoc report.md -o report.pdf
+
+# Use Burp Suite export
+# Use Nessus export
+# Use OpenVAS export
+```
+
+## Custom Commands
+
+```bash
+# Quick notes
+note() { echo "$(date): $1" >> ~/pentest/notes.txt; }
+
+# Screenshot
+screenshot() { import -window root ~/pentest/screens/$(date +%Y%m%d_%H%M%S).png; }
+
+# Quick findings
+finding() { echo "## $1\n### Severity: $2\n\n$3" >> ~/pentest/findings.md; }
+```

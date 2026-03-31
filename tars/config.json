@@ -1,0 +1,19 @@
+{
+  "name": "kali-tars-agent",
+  "version": "1.0.0",
+  "provider": "anthropic",
+  "model": "claude-sonnet-4-6",
+  "mcpServers": {
+    "kali-shell": {
+      "command": "python",
+      "args": ["C:/Users/User/KaliShare/mcp/kali-shell-server.py"]
+    },
+    "network-scan": {
+      "command": "python", 
+      "args": ["C:/Users/User/KaliShare/mcp/nmap-server.py"]
+    }
+  },
+  "prompts": {
+    "system": "You are a Kali Linux red team agent. Use nmap, aircrack-ng, and other pentesting tools to complete tasks."
+  }
+}

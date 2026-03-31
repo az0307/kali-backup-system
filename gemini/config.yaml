@@ -1,0 +1,13 @@
+model: google/gemini-2.0-flash-exp
+skills:
+  paths:
+    - C:/Users/User/KaliShare/skills
+    - C:/Users/User/KaliShare/gemini/skills
+mcp:
+  servers:
+    - name: github
+      command: npx
+      args: ["-y", "@modelcontextprotocol/server-github"]
+    - name: filesystem
+      command: npx
+      args: ["-y", "@modelcontextprotocol/server-filesystem"]

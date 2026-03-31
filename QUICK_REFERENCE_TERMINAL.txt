@@ -1,0 +1,72 @@
+╔══════════════════════════════════════════════════════════════════════╗
+║                                                                      ║
+║   ██████╗ ██████╗  ██████╗      ██╗███████╗ ██████╗████████╗███████╗ ║
+║   ██╔══██╗██╔══██╗██╔═══██╗     ██║██╔════╝██╔════╝╚══██╔══╝██╔════╝ ║
+║   ██████╔╝██████╔╝██║    ██║     ██║█████╗  ██║        ██║   ███████╗ ║
+║   ██╔═══╝ ██╔══██╗██║    ██║██   ██║██╔══╝  ██║        ██║   ╚════██║ ║
+║   ██║     ██║  ██║╚██████╔╝╚█████╔╝███████╗╚██████╗   ██║   ███████║ ║
+║   ╚═╝     ╚═╝  ╚═╝ ╚═════╝  ╚════╝ ╚══════╝ ╚═════╝   ╚═╝   ╚══════╝ ║
+║                                                                      ║
+║              🔐 ACCESS GRANTED - SYSTEMS READY 🔐                     ║
+║                                                                      ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+┌──────────────────────────────────────────────────────────────────────┐
+│  🔥 HOTKEYS & QUICK COMMANDS                                         │
+├──────────────────────────────────────────────────────────────────────┤
+│                                                                      │
+│  🔧 KALI VM                                                         │
+│  ──────────────                                                      │
+│  [Ctrl+Alt+F1] Switch to TTY (if GUI crashes)                       │
+│  [Alt+Tab]    Switch between terminals                              │
+│  [Ctrl+C]     Cancel current command                                │
+│  [Ctrl+D]     Exit current shell                                    │
+│                                                                      │
+│  💻 WINDOWS                                                         │
+│  ──────────────                                                      │
+│  [Win+R]      Run dialog                                            │
+│  [Win+X]      Quick settings menu                                   │
+│  [Alt+Tab]    Switch windows                                        │
+│  [Win+V]      Clipboard history                                     │
+│                                                                      │
+│  📱 TERMUX                                                          │
+│  ──────────────                                                      │
+│  [Ctrl+Space]  Toggle keyboard                                      │
+│  [Ctrl+Shift+C] Copy                                                │
+│  [Ctrl+Shift+V] Paste                                               │
+│  [Tab]        Autocomplete                                          │
+│                                                                      │
+└──────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────┐
+│  🤖 AI COMMANDS (Gemini/Claude/OpenCode)                            │
+├──────────────────────────────────────────────────────────────────────┤
+│                                                                      │
+│  gemini-cli "help me hack wifi"    ← Free AI help                   │
+│  opencode                          ← AI coding assistant            │
+│  claude                            ← Claude Code                    │
+│  agent-tars web                    ← AI computer control            │
+│                                                                      │
+└──────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────┐
+│  📶 WIFI HACKING                                                    │
+├──────────────────────────────────────────────────────────────────────┤
+│                                                                      │
+│  sudo airmon-ng check kill       ← Kill interference                │
+│  sudo airmon-ng start wlan0      ← Start monitor mode               │
+│  sudo airodump-ng wlan0mon       ← Scan networks                    │
+│  sudo aireplay-ng --deauth       ← Deauth attack                    │
+│  sudo aircrack-ng -w wordlist    ← Crack password                   │
+│                                                                      │
+└──────────────────────────────────────────────────────────────────────┘
+
+╔══════════════════════════════════════════════════════════════════════╗
+║                                                                      ║
+║   QUICK START: Run 'sudo bash super-install.sh' in Kali VM          ║
+║                                                                      ║
+║   DOCUMENTATION: See /media/sf_KaliShare/docs/                     ║
+║                                                                      ║
+║   AI ASSISTANCE: gemini-cli "help me with [task]"                   ║
+║                                                                      ║
+╚══════════════════════════════════════════════════════════════════════╝

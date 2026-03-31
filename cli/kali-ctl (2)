@@ -1,0 +1,43 @@
+#!/bin/bash
+# ====================================================================
+# Kali Control CLI
+# Control both machines from laptop
+# ====================================================================
+
+CMD=${1:-status}
+TARGET=${2:-desktop}
+
+case $CMD in
+    status)
+        echo "=== Laptop (192.168.1.100) ==="
+        ping -c 1 192.168.1.100 2>/dev/null && echo "Online" || echo "Offline"
+        echo ""
+        echo "=== Desktop (192.168.1.200) ==="
+        ping -c 1 192.168.1.200 2>/dev/null && echo "Online" || echo "Offline"
+        ;;
+    
+    ssh)
+        ssh root@192.168.1.200
+        ;;
+    
+    sync)
+        echo "Syncing tools to desktop..."
+        rsync -avz /opt/tools/ root@192.168.1.200:/opt/tools/
+        echo "Done!"
+        ;;
+    
+    run)
+        shift 2
+        ssh root@192.168.1.200 "$@"
+        ;;
+    
+    *)
+        echo "Usage: kali-ctl <command>"
+        echo ""
+        echo "Commands:"
+        echo "  status          - Check both machines"
+        echo "  ssh             - SSH to desktop"
+        echo "  sync            - Sync tools to desktop"
+        echo "  run <command>  - Run command on desktop"
+        ;;
+esac

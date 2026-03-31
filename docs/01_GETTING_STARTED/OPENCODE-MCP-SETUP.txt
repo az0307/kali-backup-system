@@ -1,0 +1,128 @@
+# OpenCode MCP Server Setup Guide
+
+## What is MCP?
+
+MCP (Model Context Protocol) connects OpenCode to external tools like filesystems, databases, and APIs.
+
+## MCP Servers Available on USB
+
+The USB includes scripts to start MCP servers. Run these after booting Kali Live.
+
+### 1. Filesystem MCP
+
+```bash
+# From USB
+cd /media/kali/KaliShare/scripts
+./mcp-start-filesystem.sh /media/kali/KaliShare
+```
+
+### 2. GitHub MCP
+
+```bash
+# Set token first
+export GITHUB_TOKEN=$(bw get notes 'GitHub Token - Antigravity')
+# Or use the script
+./mcp-start-github.sh
+```
+
+### 3. Brave Search MCP
+
+```bash
+export BRAVE_API_KEY=$(bw get notes 'Brave Search API Key')
+./mcp-start-brave.sh
+```
+
+### 4. Bitwarden MCP
+
+```bash
+# Unlock vault first
+bw unlock
+./mcp-start-bitwarden.sh
+```
+
+## Quick Start Script
+
+Run this after booting Kali Live:
+
+```bash
+#!/bin/bash
+# Setup all MCPs
+export GITHUB_TOKEN="your_token_here"
+export BRAVE_API_KEY="your_key_here"
+
+# Start MCP servers in background
+npx -y @modelcontextprotocol/server-filesystem ~/KaliShare &
+npx -y @modelcontextprotocol/server-github &
+npx -y @modelcontextprotocol/server-brave-search &
+```
+
+## OpenCode Commands
+
+```bash
+opencode                    # Start TUI
+opencode mcp list           # Check MCP status
+opencode skills list        # List skills
+opencode models             # List models
+opencode run "your prompt"  # Run single prompt
+```
+
+## Configuration
+
+Edit `~/.config/opencode/opencode.json`:
+
+```json
+{
+  "model": "opencode/minimax-m2.5-free",
+  "mcp": {
+    "filesystem": {
+      "type": "local",
+      "command": ["npx", "-y", "@modelcontextprotocol/server-filesystem", "/path"]
+    }
+  }
+}
+```
+
+## MCP for AI Tools
+
+### Gemini CLI
+```bash
+gemini                      # Interactive
+gemini -p "prompt"          # Single prompt
+```
+
+### Grok CLI
+```bash
+grok "question"             # Ask
+grok git                    # Git help
+```
+
+### TARS CLI
+```bash
+tars                        # Start
+tars agents list            # List agents
+```
+
+## Troubleshooting
+
+```bash
+# Check if MCP is running
+opencode mcp list
+
+# Restart MCP
+pkill -f mcp-server
+npx -y @modelcontextprotocol/server-filesystem /path &
+
+# Logs
+journalctl -u opencode -f
+```
+
+## USB MCP Scripts Location
+
+```
+F:/mcp/
+├── start-filesystem.sh
+├── start-github.sh
+├── start-brave.sh
+├── start-bitwarden.sh
+└── start-all.sh
+```

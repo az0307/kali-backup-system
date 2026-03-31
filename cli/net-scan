@@ -1,0 +1,37 @@
+#!/bin/bash
+# ====================================================================
+# Network Scanner CLI
+# Quick network scanning tool
+# ====================================================================
+
+TARGET=${1:-192.168.1.0/24}
+
+case $1 in
+    quick)
+        echo "Quick scan..."
+        nmap -sn $TARGET
+        ;;
+    
+    ports)
+        echo "Port scan..."
+        nmap -sV -p- $2
+        ;;
+    
+    full)
+        echo "Full scan..."
+        nmap -sV -sC -p- -T4 $2
+        ;;
+    
+    *)
+        echo "Usage: net-scan <mode> [target]"
+        echo ""
+        echo "Modes:"
+        echo "  quick           - Quick host discovery"
+        echo "  ports <target>  - Port scan"
+        echo "  full <target>  - Full scan with scripts"
+        echo ""
+        echo "Example:"
+        echo "  net-scan quick 192.168.1.0/24"
+        echo "  net-scan ports 192.168.1.200"
+        ;;
+esac

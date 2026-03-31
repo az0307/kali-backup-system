@@ -1,0 +1,161 @@
+# USB Boot & Setup Guide
+
+## Boot from USB
+
+### 1. Configure Boot Order
+- Enter BIOS: F2/Delete/F12 (varies)
+- Set USB as first boot device
+- Save and exit
+
+### 2. Select Boot Option
+- One-time boot menu: F8/F12/F11
+- Select USB drive
+
+### 3. Choose Kali Mode
+```
+┌─────────────────────────────────────────────┐
+│  KALI LIVE USB                             │
+├─────────────────────────────────────────────┤
+│  [Live] - Try Kali without installation    │
+│  [Live (failover mode)] - Compatibility   │
+│  [Live with Persistence] - Save changes  │
+│  [Install] - Install to hard drive       │
+│  [Graphical Install] - GUI install       │
+└─────────────────────────────────────────────┘
+```
+
+## First Boot Setup
+
+```bash
+# After booting to Kali Live
+
+# 1. Connect to WiFi
+nmcli dev wifi connect "SSID" password "PASSWORD"
+
+# 2. Update
+sudo apt update && sudo apt upgrade -y
+
+# 3. Enable SSH
+sudo service ssh start
+
+# 4. Start services
+sudo service apache2 start
+
+# 5. Run quick setup
+cd /media/kali/KaliShare
+sudo ./QUICK-START.sh
+```
+
+## Persistence Setup
+
+### Option 1: Built-in Persistence
+- Select "Live with Persistence" at boot
+- Partition with label "persistence"
+- Create: `/partition/persistence.conf`
+
+### Option 2: Manual Persistence
+```bash
+# Create persistence partition
+fdisk /dev/sdb
+# New partition, type Linux (83)
+
+# Format
+mkfs.ext4 -L persistence /dev/sdb2
+
+# Mount
+mkdir -p /mnt/persistence
+mount /dev/sdb2 /mnt/persistence
+
+# Create persistence.conf
+echo "/ union" > /mnt/persistence/persistence.conf
+
+# Unmount
+umount /mnt/persistence
+```
+
+## Save Changes
+
+```bash
+# Option 1: Create overlay
+# Boot with "Persistent" mode
+
+# Option 2: Copy home folder
+mkdir -p /mnt/usb/home
+cp -r ~/. /mnt/usb/home/
+```
+
+## Useful Boot Parameters
+
+```
+# Add to boot line
+- Persistence - Saves changes
+- boot=persistence - Enable persistence
+- toram - Load to RAM (faster, no USB needed)
+- nopersist - No persistence
+- text - Text mode
+- debug - Debug mode
+```
+
+## Troubleshooting
+
+### Won't Boot
+- Check ISO integrity: `sha256sum -c SHA256SUMS`
+- Re-format USB: Use dd or Rufus
+- Disable Secure Boot in BIOS
+
+### No Wireless
+```bash
+ip link show
+iw dev
+rfkill unblock all
+```
+
+### Can't See USB
+```bash
+lsblk
+fdisk -l
+```
+
+## Desktop Setup (Post-Boot)
+
+```bash
+#!/bin/bash
+# post-boot-setup.sh
+# Run after first boot
+
+# Update
+apt update && apt upgrade -y
+
+# Install tools
+apt install -y kali-linux-default
+
+# Add user
+adduser yourname
+usermod -aG sudo yourname
+
+# SSH keys
+ssh-keygen -t ed25519
+cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys
+
+# Firewall
+ufw enable
+ufw allow ssh
+ufw allow 80/tcp
+
+echo "Setup complete!"
+```
+
+## Quick Reference
+
+| Boot Option | Use |
+|-------------|-----|
+| Live | Try without install |
+| Live Persistence | Save changes |
+| Install | Full install |
+| Graphical Install | GUI install |
+
+## Links
+
+- Kali Docs: https://www.kali.org/docs/
+- Live Boot: https://www.kali.org/docs/installation/live-boot/
+- Persistence: https://www.kali.org/docs/installation/persistence/

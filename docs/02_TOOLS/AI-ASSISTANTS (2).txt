@@ -1,0 +1,272 @@
+# AI Assistants Integration Guide
+
+## OpenCode (Recommended)
+
+### Install
+```bash
+# Already on USB - use from any machine
+cd /media/kali/KaliShare
+./scripts/install-opencode.sh
+```
+
+### Usage
+```bash
+opencode                    # Start interactive
+opencode "nmap -sn 192.168.1.0/24"  # Run command
+opencode --help            # Options
+```
+
+### With MCP
+```bash
+# Connect to tools
+opencode mcp list           # Check status
+opencode mcp start filesystem
+```
+
+## Claude (Anthropic)
+
+### Install on Kali
+```bash
+# Via npm
+npm install -g @anthropic-ai/claude-code
+
+# Or use Claude Desktop
+# Download from claude.ai/desktop
+```
+
+### CLI Usage
+```bash
+claude                      # Interactive
+claude -p "explain nmap results"  # Single prompt
+```
+
+## Gemini CLI (Google)
+
+### Install
+```bash
+npm install -g @google/gemini-cli
+```
+
+### Usage
+```bash
+gemini                      # Interactive
+gemini -p "write a nmap script"
+```
+
+## Grok CLI (xAI)
+
+### Install
+```bash
+npm install -g @vibe-kit/grok-cli
+```
+
+### Usage
+```bash
+grok "how to crack WPA2"
+grok git "explain git reset"
+```
+
+## Hugging Face Models (Download for Offline Use)
+
+### Install HuggingFace CLI
+```bash
+pip install huggingface-hub
+```
+
+### Download Models
+
+#### Expert Pentester Model
+```bash
+# Pentest-focused model (via huggingface-cli)
+huggingface-cli downloadInfosys/pentestgpt-7b-gguf
+huggingface-cli downloadArceeAI/Pentest-7B
+huggingface-cli downloadFelladrin/Pentester-GGUF
+
+# Alternative: Use weights from:
+# https://huggingface.co/Infosys/pentestgpt-7b-gguf
+# https://huggingface.co/ArceeAI/Pentest-7B
+```
+
+#### NSFW/Privacy Model
+```bash
+# For privacy-focused tasks (local is safer)
+huggingface-cli downloadTheBloke/deepseek-coder-6.7B-GGUF
+huggingface-cli downloadTheBloke/llama-2-7b-chat-GGUF
+
+# Privacy alternatives (don't send data externally):
+# - Use local Ollama instead
+# - Use opencode with local model
+```
+
+### Use with Ollama (Local)
+```bash
+# After downloading GGUF file
+ollama create pentest-model --path ./model.gguf
+ollama run pentest-model
+```
+
+### Quick Download Script
+```bash
+#!/bin/bash
+# download-hf-models.sh
+
+MODELS_DIR="/media/kali/KaliShare/models"
+mkdir -p "$MODELS_DIR"
+
+echo "Downloading models (requires internet)..."
+
+# Pentester model (~4GB)
+huggingface-cli download TheBloke/CodeLlama-7B-Instruct-GGUF \
+  --local-dir "$MODELS_DIR/codellama-7b" \
+  --ignore-files *.md *.txt 2>/dev/null || echo "Manual: https://huggingface.co/TheBloke/CodeLlama-7B-Instruct-GGUF"
+
+echo "Models saved to: $MODELS_DIR"
+echo "Use: ollama create --path \$MODELS_DIR/model.gguf"
+```
+
+### Models
+```bash
+# Pull models
+ollama pull codellama       # Code
+ollama pull llama2          # General
+ollama pull mistral        # Fast
+ollama pull neural-chat    # Chat
+
+# Run
+ollama run codellama
+```
+
+### With OpenCode
+```bash
+# Configure in opencode.json
+{
+  "model": "ollama/codellama",
+  "url": "http://localhost:11434"
+}
+```
+
+## Copilot Integration
+
+### GitHub Copilot (VS Code)
+```bash
+# Install VS Code
+apt install code
+
+# Enable in extensions
+# Sign in with GitHub account
+```
+
+### Continue Extension (OpenCode)
+```bash
+# For VS Code / Continue
+# Config: ~/.continue/config.py
+config = {
+    "models": [{
+        "provider": "openai",
+        "model": "gpt-4"
+    }]
+}
+```
+
+## LlamaIndex for Knowledge
+
+```python
+# Create knowledge base
+pip install llama-index
+
+from llama_index import KnowledgeIndex
+
+# Index your notes
+index = KnowledgeIndex.from_documents(docs)
+query_engine = index.as_query_engine()
+```
+
+## Custom AI Widgets
+
+### Python Chatbot
+```python
+#!/usr/bin/env python3
+# Simple chatbot with local model
+
+import requests
+
+def chat(prompt, model="llama2"):
+    r = requests.post(
+        "http://localhost:11434/api/generate",
+        json={"model": model, "prompt": prompt}
+    )
+    return r.json()["response"]
+
+while True:
+    print("🤖:", chat(input("You: ")))
+```
+
+### GPT-4Free Widget
+```bash
+#!/bin/bash
+# Quick AI query
+
+QUERY="$1"
+curl -s "https://api.pawan.krd/gpt4" \
+  -H "Content-Type: application/json" \
+  -d "{\"prompt\":\"$QUERY\"}"
+```
+
+## AI Productivity Commands
+
+```bash
+# Create alias in ~/.zshrc
+ai() {
+    opencode "$@"
+}
+
+explain() {
+    opencode "Explain what this does: $1"
+}
+
+pentest() {
+    opencode "Create a pentest plan for $1"
+}
+
+rewrite() {
+    opencode "Rewrite this code: $1"
+}
+
+bugfix() {
+    opencode "Find bugs in: $1"
+}
+```
+
+## Knowledge Bases
+
+### Keep in ~/knowledge/
+```
+knowledge/
+├── notes/           # Pentest notes
+├── payloads/        # Payloads
+├── exploits/        # Exploits
+├── wordlists/       # Custom wordlists
+└── scripts/        # Custom scripts
+```
+
+### Query with AI
+```bash
+# Index and query
+ai-query() {
+    opencode "Search my knowledge for: $1"
+}
+```
+
+## Model Comparison for Pentesting
+
+| Model | Size | Best For | URL |
+|-------|------|----------|-----|
+| **CodeLlama 7B** | 4GB | Code, scripts | TheBloke/CodeLlama-7B-Instruct-GGUF |
+| **Mistral 7B** | 4GB | General sec | TheBloke/Mistral-7B-Instruct-v0.2-GGUF |
+| **DeepSeek Coder** | 4GB | Code analysis | TheBloke/deepseek-coder-6.7B-instruct-GGUF |
+| **Phi-2** | 2GB | Light, fast | TheBloke/Phi-2-GGUF |
+
+### Best for Pentesters
+1. **CodeLlama** - Write scripts, analyze code
+2. **DeepSeek Coder** - Code review, vulnerability finding
+3. **Mistral** - General conversation, explanations

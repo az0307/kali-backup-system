@@ -1,0 +1,46 @@
+{
+  "version": "1.0",
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": { "GITHUB_TOKEN": "GITHUB_TOKEN" }
+    },
+    "filesystem": {
+      "command": "npx", 
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "C:/Users/User"]
+    },
+    "brave-search": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+      "env": { "BRAVE_API_KEY": "BRAVE_API_KEY" }
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"]
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    },
+    "sqlite": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sqlite"]
+    }
+  },
+  "hooks": {
+    "PreToolUse": [
+      "C:/Users/User/KaliShare/claude/hooks/pre-tool.js"
+    ],
+    "PostToolUse": [
+      "C:/Users/User/KaliShare/claude/hooks/post-tool.js"
+    ]
+  },
+  "skills": {
+    "paths": [
+      "C:/Users/User/KaliShare/skills",
+      "C:/Users/User/KaliShare/claude/skills",
+      "C:/Users/User/.config/opencode/skills"
+    ]
+  }
+}

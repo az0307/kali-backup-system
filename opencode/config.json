@@ -1,0 +1,53 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "google/gemini-2.0-flash-exp",
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "C:/Users/User"]
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": { "GITHUB_TOKEN": "GITHUB_TOKEN" }
+    },
+    "brave-search": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+      "env": { "BRAVE_API_KEY": "BRAVE_API_KEY" }
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"]
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    },
+    "puppeteer": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer"]
+    },
+    "desktop-commander": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-desktop-commander"]
+    },
+    "kali-shell": {
+      "command": "python",
+      "args": ["C:/Users/User/KaliShare/mcp/kali-shell-server.py"]
+    }
+  },
+  "skills": {
+    "paths": [
+      "C:/Users/User/KaliShare/skills",
+      "C:/Users/User/KaliShare/opencode/skills",
+      "C:/Users/User/.config/opencode/skills",
+      "C:/Users/User/.config/opencode/superpowers/skills"
+    ]
+  },
+  "plugin": [
+    "C:/Users/User/KaliShare/plugins/kali-tools",
+    "C:/Users/User/.config/opencode/oh-my-opencode",
+    "C:/Users/User/.config/opencode/superpowers"
+  ]
+}

@@ -1,0 +1,45 @@
+#!/bin/bash
+# ====================================================================
+# WiFi Monitor CLI
+# Wireless monitoring tool
+# ====================================================================
+
+CMD=${1:-scan}
+
+case $CMD in
+    start)
+        echo "Starting monitor mode..."
+        airmon-ng start wlan0
+        ;;
+    
+    stop)
+        echo "Stopping monitor mode..."
+        airmon-ng stop wlan0mon
+        ;;
+    
+    scan)
+        echo "Scanning networks..."
+        airodump-ng wlan0mon
+        ;;
+    
+    ap)
+        echo "Target AP: $2"
+        airodump-ng --bssid $2 -c ${3:-1} -w capture wlan0mon
+        ;;
+    
+    deauth)
+        echo "Deauthing $2..."
+        aireplay-ng -0 5 -a $2 wlan0mon
+        ;;
+    
+    *)
+        echo "Usage: wifi-mon <command> [options]"
+        echo ""
+        echo "Commands:"
+        echo "  start           - Enable monitor mode"
+        echo "  stop            - Disable monitor mode"
+        echo "  scan            - Scan for networks"
+        echo "  ap <bssid> [ch] - Monitor specific AP"
+        echo "  deauth <bssid> - Deauth attack"
+        ;;
+esac

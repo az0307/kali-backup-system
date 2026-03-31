@@ -1,0 +1,135 @@
+# CLI Tools Reference
+
+## Installed AI CLI Tools
+
+| CLI | Command | Purpose |
+|-----|---------|---------|
+| **opencode** | `opencode` | AI coding agent |
+| **gemini** | `gemini` | Google Gemini CLI |
+| **grok** | `grok` | xAI Grok |
+| **tars** | `tars` | Agent TARS |
+| **cline** | `cline` | Cline AI |
+
+## Connect to MCP Servers
+
+```bash
+# Via npx (recommended)
+npx -y @modelcontextprotocol/server-filesystem .
+npx -y @modelcontextprotocol/server-github
+npx -y @modelcontextprotocol/server-brave-search
+
+# Via npm global
+mcp-server-filesystem C:/Users/User
+mcp-server-bitwarden
+mcp-server-github
+
+# Docker MCP
+docker run -it --rm -e GITHUB_TOKEN ghcr.io/github/github-mcp-server
+```
+
+## Quick MCP Connect Commands
+
+```bash
+# Filesystem
+npx -y @modelcontextprotocol/server-filesystem /path
+
+# GitHub
+export GITHUB_TOKEN=ghp_xxx
+npx -y @modelcontextprotocol/server-github
+
+# Brave Search
+export BRAVE_API_KEY=xxx
+npx -y @modelcontextprotocol/server-brave-search
+
+# PostgreSQL
+npx -y @modelcontextprotocol/server-postgres postgresql://user:pass@localhost
+
+# Slack
+export SLACK_BOT_TOKEN=xoxb-xxx
+npx -y @modelcontextprotocol/server-slack
+
+# Redis
+npx -y @modelcontextprotocol/server-redis redis://localhost:6379
+```
+
+## Essential Kali Commands
+
+```bash
+# Update
+apt update && apt upgrade -y
+
+# Install tools
+apt install -y nmap aircrack-ng reaver hydra john hashcat sqlmap nikto dirb
+
+# Services
+service ssh start
+service apache2 start
+service postgresql start
+
+# Metasploit
+msfconsole
+msfupdate
+```
+
+## Network Tools
+
+```bash
+nmap -sn 192.168.1.0/24        # Discovery
+masscan -p1-65535 IP          # Fast scan
+netdiscover -r 192.168.1.0/24 # ARP scan
+arp-scan -l                   # Local scan
+```
+
+## WiFi Tools
+
+```bash
+airmon-ng start wlan0         # Monitor mode
+airodump-ng wlan0mon          # Scan
+aireplay-ng -0 10 -a MAC wlan0mon  # Deauth
+reaver -i wlan0mon -b MAC -vv  # WPS
+```
+
+## Password Tools
+
+```bash
+hydra -L users.txt -P pass.txt ssh://IP
+hashcat -m 0 hash.txt wordlist.txt
+john --wordlist=wordlist.txt hash
+```
+
+## Web Tools
+
+```bash
+nikto -h http://target
+dirb http://target
+sqlmap -u "target/?id=1"
+zaproxy &
+```
+
+## Windows Pentest
+
+```bash
+responder -I eth0             # LLMNR spoof
+crackmapexec smb 192.168.1.0/24
+impacket-secretsdump user:pass@target
+mimikatz
+```
+
+## Forensics
+
+```bash
+autopsy                      # GUI forensic
+binwalk firmware.bin         # Analyze
+foremost -i file.png         # Extract files
+strings binary | grep pass   # Strings search
+```
+
+## Useful Locations
+
+```
+/usr/share/nmap/scripts/     # NSE scripts
+/usr/share/wordlists/        # Wordlists
+/usr/share/webshells/        # Web shells
+/var/www/html/               # Web root
+~/.msf4/modules/            # Metasploit modules
+```

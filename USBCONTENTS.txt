@@ -1,0 +1,75 @@
+╔══════════════════════════════════════════════════════════════════╗
+║              KALI LIVE USB - CONTENTS CHECKLIST                 ║
+║                        READY TO USE                             ║
+╚══════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ROOT FILES:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✓ MENU                    - Main interactive menu (RUN THIS!)
+✓ QUICK-START.sh          - 5-minute setup script
+✓ scripts-desktop/        - 90+ security scripts
+✓ wifi-passwords/          - Saved credentials
+✓ COMPLETE-GUIDE.txt      - Full documentation
+✓ NETWORK-GUIDE.txt        - Network setup guide
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+HOW TO USE:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Boot from USB → Select "Live (amd64)"
+2. Login: root / kali
+3. Run: sudo ./MENU
+   OR
+3. Run: sudo ./QUICK-START.sh
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+QUICK COMMANDS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ./MENU                  - Interactive menu (RECOMMENDED)
+  nmap -sn 192.168.1.0/24 - Scan network
+  airmon-ng start wlan0  - Enable monitor mode
+  chntpw -i SAM          - Reset Windows password
+  opencode               - AI assistant (after install)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SAVED CREDENTIALS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Melton 1:        meltonone
+  TelstraBF869B:   E3CF746CF4
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+INSTALL AI TOOLS (optional):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ./scripts-desktop/install-ai-tools.sh
+
+  This installs:
+  • OpenCode - AI coding assistant
+  • Gemini CLI - Google AI
+  • HexStrike - Security AI
+  • Claude Code - Anthropic AI
+  • MCP Servers - Tool integrations
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TOOL CATEGORIES:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  [1] Password Operations    - Reset, crack, recover
+  [2] Network Operations     - Scan, sniff, MITM
+  [3] Wireless Attacks     - WiFi, WPS, handshakes
+  [4] Exploitation          - Metasploit, shells
+  [5] Forensics            - Memory, disk, recovery
+  [6] System Info          - Hardware, network details
+  [7] Post-Exploitation    - Persistence, privesc
+  [8] AI Tools            - OpenCode, Gemini, etc
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PASSWORD LISTS:
+  To download wordlists, run after boot:
+    ./scripts-desktop/download-wordlists.sh
+  
+  Or manually download to /usr/share/wordlists/:
+    • SecLists: github.com/danielmiessler/SecLists
+    • RockYou: github.com/vanhauser-thc/thc-hydra
+
+USB SPACE: ~14GB FREE (Total 15GB)
+
+VERSION: 2.0 | DATE: 2026-03-25

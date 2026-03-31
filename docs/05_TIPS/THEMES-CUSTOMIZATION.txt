@@ -1,0 +1,196 @@
+# Kali Themes & Customization Guide
+
+## Oh My Zsh Themes
+
+```bash
+# Install Oh My Zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# Best themes for pentesting
+# Add to ~/.zshrc:
+ZSH_THEME="powerlevel10k"        # Modern, fast
+# Or
+ZSH_THEME="starship"             # Cross-shell
+
+# Powerlevel10k config
+p10k configure
+```
+
+## Dotfiles Themes
+
+### Starship Prompt (Recommended)
+```bash
+# Install
+curl -sS https://starship.rs/install.sh | sh
+
+# Config (~/.config/starship.toml)
+format = """
+[character]${message}
+[directory]
+[git_branch]
+[python]
+[node]
+[aws]
+[docker]
+"""
+
+[character]
+success_symbol = "[➜](bold green)"
+error_symbol = "[✗](bold red)"
+```
+
+### Powerlevel10k
+```bash
+# Install
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/p10k.zsh-theme
+
+# In .zshrc
+ZSH_THEME=p10k
+```
+
+## GTK Themes
+
+```bash
+# Dark themes
+apt install -y arc-theme numix-gtk-theme papirus-icon-theme
+
+# Flatpak themes
+flatpak install flathub org.gtk.Gtk3theme.Adwaita-dark
+```
+
+## Terminal Themes
+
+### Alacritty
+```yaml
+# ~/.config/alacritty/alacritty.yml
+font:
+  size: 12
+  family: "JetBrains Mono"
+
+colors:
+  primary:
+    background: '#1e1e1e'
+    foreground: '#d4d4d4'
+  cursor:
+    background: '#ffffff'
+    foreground: '#000000'
+```
+
+### Kitty
+```ini
+# ~/.config/kitty/kitty.conf
+font_family JetBrains Mono
+font_size 12
+background_opacity 0.9
+draw_minimal_borders yes
+```
+
+## ZSH Plugins
+
+```bash
+# Essential plugins (~/.zshrc)
+plugins=(
+    git
+    docker
+    python
+    pip
+    command-not-found
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+    fzf
+    z
+)
+
+# Install extras
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+```
+
+## Tool Themes
+
+### MSF Console
+```bash
+# ~/.msf4/config
+setg PROMPTCOLOR \e[0;35m
+setg PROMPT_FMT %RedH msf6 %el %clr
+```
+
+### Nmap
+```bash
+# ~/.nmaprc
+script-default-engine discovery
+```
+
+### Tmux
+```bash
+# ~/.tmux.conf
+set -g status-style bg=colour235,fg=colour223
+set -g status-left-length 30
+set -g status-right "#{host} #{session}"
+```
+
+## Color Schemes
+
+### One Dark (VS Code)
+```
+background: #282c34
+foreground: #abb2bf
+keyword: #c678dd
+string: #98c379
+number: #d19a66
+comment: #5c6370
+```
+
+### Dracula
+```
+background: #282a36
+foreground: #f8f8f2
+cyan: #8be9fd
+green: #50fa7b
+orange: #ffb86c
+purple: #bd93f9
+```
+
+## Wallpapers
+
+ Kali wallpapers: `/usr/share/kali-wallpapers/`
+ Add custom: `~/.local/share/wallpapers/`
+
+## Useful Aliases
+
+```bash
+# ~/.zshrc
+alias ll='ls -la --color=auto'
+alias la='ls -A --color=auto'
+alias l='ls -CF --color=auto'
+
+# Git
+alias g='git'
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit'
+alias gp='git push'
+
+# Quick nav
+alias cd..='cd ..'
+alias ..='cd ..'
+alias ...='cd ../..'
+
+# Tools
+alias n='nmap'
+alias msf='msfconsole'
+alias sql='sqlmap'
+```
+
+## Icons (Nerd Fonts)
+
+```bash
+# Install
+mkdir -p ~/.local/share/fonts
+cd ~/.local/share/fonts
+curl -fLO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip
+unzip JetBrainsMono.zip
+
+# In terminal
+echo "󰊭 󰌵 󰊕 󰈙 󰊫 󰅶"
+```

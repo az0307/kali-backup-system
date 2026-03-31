@@ -1,0 +1,42 @@
+{
+  "models": {
+    "default": "gemini-2.0-flash-exp",
+    "providers": {
+      "google": {
+        "model": "gemini-2.0-flash-exp",
+        "apiKey": "YOUR_GEMINI_KEY_HERE"
+      },
+      "openai": {
+        "model": "gpt-4o",
+        "apiKey": "YOUR_OPENAI_KEY_HERE"
+      },
+      "anthropic": {
+        "model": "claude-sonnet-4-20250514",
+        "apiKey": "YOUR_ANTHROPIC_KEY_HERE"
+      }
+    }
+  },
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/home/kali"]
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_TOKEN": "YOUR_GITHUB_TOKEN"
+      }
+    },
+    "brave-search": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+      "env": {
+        "BRAVE_API_KEY": "YOUR_BRAVE_KEY"
+      }
+    }
+  },
+  "skills": {
+    "directory": "~/.config/opencode/skills"
+  }
+}

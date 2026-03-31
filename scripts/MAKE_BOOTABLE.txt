@@ -1,0 +1,40 @@
+@echo off
+REM Bootable USB Creator - Using Windows Built-in
+REM No extra software needed!
+
+echo.
+echo ====================================
+echo   BOOTABLE KALI USB CREATOR
+echo ====================================
+echo.
+
+echo METHOD 1: ISO Mount (Easiest!)
+echo -------------------------------
+echo 1. Right-click F:\kali.iso
+echo 2. Select "Mount" 
+echo 3. A virtual DVD will appear (e.g., D:\)
+echo 4. Copy ALL files from virtual DVD to USB (F:\)
+echo 5. Done! USB is bootable.
+echo.
+
+echo.
+echo METHOD 2: If you have a Windows ISO Tool
+echo -------------------------------------------
+echo Use tools like:
+echo - Ventoy: https://www.ventoy.net
+echo - UNetbootin: https://unetbootin.github.io
+echo - YUMI: https://www.pendrivelinux.com/yumi-multiboot-usb-creator/
+echo.
+
+echo.
+echo If downloading Rufus:
+echo 1. Open browser
+echo 2. Go to: https://rufus.ie
+echo 3. Download rufus-4.13.exe
+echo 4. Run as Admin
+echo 5. Select F: drive
+echo 6. Select kali.iso
+echo 7. Click Start
+echo.
+
+pause

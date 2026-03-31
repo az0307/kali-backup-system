@@ -1,0 +1,132 @@
+# Repos to Clone for USB
+
+## Essential GitHub Repos
+
+```bash
+# Clone to USB - run from Kali Live
+
+# Wordlists & Payloads
+cd /media/kali/KaliShare/tools
+git clone https://github.com/danielmiessler/SecLists.git
+git clone https://github.com/kaozzn/payloads.git
+git clone https://github.com/1N3/Sn1per.git
+git clone https://github.com/swisskyrepo/PayloadsAllTheThings.git
+
+# Recon
+git clone https://github.com/projectdiscovery/httpx.git
+git clone https://github.com/projectdiscovery/subfinder.git
+git clone https://github.com/projectdiscovery/naabu.git
+git clone https://github.com/projectdiscovery/katana.git
+git clone https://github.com/tomnomnom/assetfinder.git
+
+# Exploitation
+git clone https://github.com/carlospolop/PEASS-ng.git
+git clone https://github.com/ZeroDayLab/PowerUpSQL.git
+git clone https://github.com/411/Windows-Pentest.git
+git clone https://github.com/01ghost/ShellPop.git
+
+# Wifi
+git clone https://github.com/FluxionNetwork/fluxion.git
+git clone https://github.com/entropy69/Wifi-Pentest-Cheatsheet.git
+
+# Post-Ex
+git clone https://github.com/411/Windows-Pentest.git
+git clone https://github.com/mh4x0f/pentest-book.git
+git clone https://github.com/shell-storm/reverse-shell-generator.git
+```
+
+## What to Download
+
+### Wordlists
+- SecLists (700+ MB) - HUGE but essential
+- seclists (from apt)
+- Custom by language/region
+
+### Scripts Collection
+- PayloadsAllTheThings/
+- Payloads from all tools
+- Reverse shells
+
+### Offline Docs
+- HackTricks PDF
+- Penetration Testing Bookmarks
+- Cheat Sheets
+
+### Binaries
+- Precompiled tools for offline use
+- Windows executables (mimikatz, pwdump, etc)
+
+## Directory Structure for USB
+
+```
+/tools/
+├── wordlists/
+│   ├── SecLists/
+│   ├── custom/
+│   └── rockyou.txt
+├── payloads/
+│   ├── webshells/
+│   ├── reverse_shells/
+│   └── windows/
+├── recon/
+├── exploit/
+├── post/
+└── wifi/
+```
+
+## Quick Install Script
+
+```bash
+#!/bin/bash
+# Install-all-tools-remote.sh
+
+cd /media/kali/KaliShare/tools
+
+echo "Installing from GitHub..."
+
+# Wordlists (big!)
+git clone --depth 1 https://github.com/danielmiessler/SecLists.git
+
+# Recon tools
+go install github.com/projectdiscovery/httpx/cmd/httpx@latest
+go install github.com/projectdiscovery/subfinder/cmd/subfinder@latest
+go install github.com/projectdiscovery/naabu/cmd/naabu@latest
+
+# Post-ex
+go install github.com/carlospolop/hacktools@latest
+```
+
+## Offline Packages
+
+```bash
+# Download apt packages for offline use
+apt-get download package_name
+apt-get download --allow-downgrades package_name
+
+# Cache
+apt-cache cache
+
+# Store in /packages/
+mkdir -p /media/kali/KaliShare/packages
+cd /var/cache/apt/archives
+cp *.deb /media/kali/KaliShare/packages/
+```
+
+## Custom Scripts to Add
+
+- Auto-recon
+- Quick scan
+- Payload generator
+- Report generator
+- Notes templates
+
+## AI Models (Optional)
+
+```bash
+# Ollama for offline AI
+curl -fsSL https://ollama.com/install.sh | sh
+
+# Pull small models
+ollama pull codellama:7b
+ollama pull mistral
+```

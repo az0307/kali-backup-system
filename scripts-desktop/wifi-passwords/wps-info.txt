@@ -1,0 +1,51 @@
+==================================================
+WPS (Wi-Fi Protected Setup) Information
+==================================================
+
+What you're seeing:
+The 8-digit code displayed after logging into your router admin page
+is the WPS PIN (Wi-Fi Protected Setup Personal Identification Number).
+
+Purpose of WPS PIN:
+- Allows devices to connect to your Wi-Fi network without entering the WiFi password
+- Useful for devices without keyboards (printers, IoT devices, etc.)
+- Alternative to the WPS Push Button method (physical button on router)
+
+Your Networks:
+1. Melton 1
+   Password: meltonone
+   WPS PIN: [The 8-digit code you see in router admin]
+
+2. TelstraBF869B
+   Password: E3CF746CF4
+   WPS PIN: [Likely different - check Telstra router admin]
+
+How to Use WPS PIN:
+On Windows:
+  1. Click Wi-Fi icon → Select network
+  2. Look for 'Connect using WPS PIN' option
+  3. Enter the 8-digit code → Connect
+
+On Android:
+  1. Wi-Fi settings → Advanced → WPS Push Button
+  2. Or look for 'WPS PIN Entry' option
+
+In Kali Linux (for legitimate testing ONLY on your own network):
+  wash -i wlan0 -j -s  # Scan for WPS-enabled networks
+  reaver -i wlan0 -b [MAC] -vv  # Attempt WPS PIN attack (ethics/legality apply)
+
+Security Note:
+- WPS PIN is vulnerable to brute-force attacks (can be cracked in 2-10 hours)
+- Consider disabling WPS in router settings if not used
+- Only use WPS tools on networks you own or have explicit written permission to test
+
+Your Router Info:
+Gateway: 10.255.30.5
+Admin Page: http://10.255.30.5
+
+To find WPS settings in your router:
+1. Login to http://10.255.30.5
+2. Look for Wireless Settings → WPS
+3. Or check Advanced → Wireless → WPS
+
+Saved: Wed Mar 25 11:21:03 AUSEST 2026

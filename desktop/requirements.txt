@@ -1,0 +1,2 @@
+# KaliShare Desktop Requirements
+paramiko

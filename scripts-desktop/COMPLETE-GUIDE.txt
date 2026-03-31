@@ -1,0 +1,280 @@
+# ═════════════════════════════════════════════════════════════════
+# KALI LIVE USB - COMPREHENSIVE GUIDE
+# ═════════════════════════════════════════════════════════════════
+# Version: 2.0
+# Date: 2026-03-25
+# ═════════════════════════════════════════════════════════════════
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TABLE OF CONTENTS:
+1. Quick Start
+2. AI Tools Guide
+3. Pentesting Tools
+4. Network Operations
+5. Wireless Attacks
+6. Password Operations
+7. Forensics
+8. Troubleshooting
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+════════════════════════════════════════════════════════════════
+SECTION 1: QUICK START
+════════════════════════════════════════════════════════════════
+
+BOOT FROM USB:
+1. Insert USB into target computer
+2. Boot from USB (F12, F2, or ESC)
+3. Select "Live (amd64)"
+4. Username: root, Password: kali
+
+START MAIN MENU:
+  sudo /scripts-desktop/MENU
+
+QUICK COMMANDS:
+  ai-menu              - AI tools launcher
+  opencode            - AI coding assistant
+  hexstrike           - Security AI
+  network-scan        - Scan network
+  wifi-scanner        - Find wireless networks
+
+════════════════════════════════════════════════════════════════
+SECTION 2: AI TOOLS GUIDE
+════════════════════════════════════════════════════════════════
+
+AVAILABLE AI TOOLS:
+
+┌─────────────────────────────────────────────────────────────┐
+│ OPENCODE - Main AI Assistant                               │
+├─────────────────────────────────────────────────────────────┤
+│ Purpose: General AI coding assistant with MCP support     │
+│ Install: npm install -g opencode-ai                      │
+│ Run: opencode                                            │
+│ Features:                                                │
+│   • Code generation and review                           │
+│   • Bug detection and fixing                             │
+│   • MCP server integration                               │
+│   • File system access                                   │
+│   • Memory and context management                         │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ HEXSTRIKE AI - Security Focus                             │
+├─────────────────────────────────────────────────────────────┤
+│ Purpose: Penetration testing and security analysis        │
+│ Location: /root/hexstrike-ai/                            │
+│ Run: /root/hexstrike-ai/hexstrike.sh                    │
+│ Features:                                                 │
+│   • Exploit suggestion                                   │
+│   • Code analysis                                        │
+│   • Payload generation                                   │
+│   • Vulnerability assessment                             │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ GEMINI CLI - Google AI                                    │
+├─────────────────────────────────────────────────────────────┤
+│ Purpose: General AI assistant from Google                 │
+│ Install: npm install -g @google/gemini-cli               │
+│ Run: gemini                                              │
+│ Setup: Set GEMINI_API_KEY environment variable           │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ CLAUDE CODE - Anthropic AI                                │
+├─────────────────────────────────────────────────────────────┤
+│ Purpose: General AI assistant                             │
+│ Install: Download from claude.ai/downloads               │
+│ Run: claude                                              │
+│ Note: Requires authentication                              │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ TARS - UI-TARS Desktop                                    │
+├─────────────────────────────────────────────────────────────┤
+│ Purpose: Visual AI for UI analysis                       │
+│ Location: ~/AI-tools/UI-TARS-desktop                    │
+│ Run: cd ~/AI-tools/UI-TARS-desktop && ./start.sh       │
+│ Stars: 28k+ on GitHub                                   │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ MCP SERVERS - Model Context Protocol                      │
+├─────────────────────────────────────────────────────────────┤
+│ Purpose: Connect AI to tools and services                 │
+│ Installed:                                              │
+│   • filesystem - File system access                     │
+│   • memory    - Persistent memory                        │
+│   • github    - GitHub integration                       │
+│   • brave-search - Web search                           │
+│ Config: ~/.config/opencode/mcp-config.json              │
+└─────────────────────────────────────────────────────────────┘
+
+AI SETUP:
+  1. Run: sudo ./install-ai-tools.sh
+  2. Get API keys:
+     - OpenAI: https://platform.openai.com/api-keys
+     - Google: https://aistudio.google.com/app/apikey
+  3. Set keys:
+     export OPENAI_API_KEY=your_key
+     export GEMINI_API_KEY=your_key
+  4. Run: opencode
+
+════════════════════════════════════════════════════════════════
+SECTION 3: PENTESTING TOOLS
+════════════════════════════════════════════════════════════════
+
+METAEXPLOIT FRAMEWORK:
+  msfconsole                    - Start Metasploit
+  msfvenom -l payloads         - List payloads
+  msfvenom -l encoders         - List encoders
+  searchsploit <term>          - Search Exploit-DB
+
+NETWORK SCANNING:
+  nmap -sn 192.168.1.0/24     - Discover hosts
+  nmap -sV target              - Version detection
+  nmap -sC target             - Default scripts
+  nmap -p- target              - All ports
+  nmap -O target               - OS detection
+
+WEB TESTING:
+  nikto -h target              - Web vulnerability scan
+  sqlmap -u target             - SQL injection
+  gobuster dir -u target       - Directory busting
+  dirb target                 - Directory scanner
+  wpscan --url target          - WordPress scan
+
+PASSWORD ATTACKS:
+  hydra -L users.txt -P pass.txt target ssh
+  john hash.txt                 - John the Ripper
+  hashcat -m 0 hash.txt wordlist.txt
+  crunch 8 8 1234567890 -o wordlist.txt
+
+════════════════════════════════════════════════════════════════
+SECTION 4: NETWORK OPERATIONS
+════════════════════════════════════════════════════════════════
+
+INTERCEPT CREDENTIALS:
+  responder -I eth0            - LLMNR/NBT-NS spoofing
+  ettercap -G                  - Graphical ARP spoofing
+  arpspoof -i eth0 -t target gateway
+
+PACKET SNIFFING:
+  tcpdump -i eth0 -w capture.pcap
+  wireshark                    - GUI sniffer
+  driftnet                     - Image sniffing
+
+════════════════════════════════════════════════════════════════
+SECTION 5: WIRELESS ATTACKS
+════════════════════════════════════════════════════════════════
+
+MONITOR MODE:
+  airmon-ng start wlan0        - Enable monitor mode
+  airmon-ng stop wlan0mon      - Disable
+
+WI-FI SCANNING:
+  airodump-ng wlan0mon         - Scan networks
+  wash -i wlan0mon             - Find WPS networks
+
+HANDSHAKE CAPTURE:
+  airodump-ng -c [channel] --bssid [MAC] -w handshake wlan0mon
+  aireplay-ng -0 10 -a [AP_MAC] wlan0mon  - Deauth
+
+CRACKING:
+  aircrack-ng -w wordlist.txt handshake.cap
+
+WPS ATTACK:
+  reaver -i wlan0mon -b [MAC] -vv
+
+════════════════════════════════════════════════════════════════
+SECTION 6: PASSWORD OPERATIONS
+════════════════════════════════════════════════════════════════
+
+WINDOWS PASSWORD RESET:
+  fdisk -l                     - Find Windows partition
+  mount /dev/sda1 /mnt        - Mount Windows
+  cd /mnt/Windows/System32/config
+  chntpw -i SAM               - Interactive reset
+
+HASH DUMPING (ON TARGET):
+  mimikatz                    - Windows credentials
+  secretsdump.py              - SAM database
+  pwdump                      - Password hashes
+
+PASSWORD CRACKING:
+  hashcat -m 1000 -a 0 hash.txt wordlist.txt  (NTLM)
+  hashcat -m 2500 -a 0 hash.txt wordlist.txt  (WPA)
+
+════════════════════════════════════════════════════════════════
+SECTION 7: FORENSICS
+════════════════════════════════════════════════════════════════
+
+MEMORY ACQUISITION:
+  volatility -f mem.raw --profile=Win10x64_14393 pslist
+
+FILE RECOVERY:
+  foremost -i disk.img -o output
+  scalpel -i disk.img -o output
+
+DISK IMAGING:
+  dd if=/dev/sda of=image.raw bs=4M
+
+NETWORK FORENSICS:
+  wireshark -r capture.pcap
+  zeek -r capture.logs
+
+════════════════════════════════════════════════════════════════
+SECTION 8: TROUBLESHOOTING
+════════════════════════════════════════════════════════════════
+
+WIFI NOT WORKING:
+  1. Check: iwconfig
+  2. Enable: ip link set wlan0 up
+  3. Monitor: airmon-ng start wlan0
+
+NO INTERNET:
+  1. Check: ip addr show
+  2. DNS: ping 8.8.8.8
+  3. DHCP: dhclient eth0
+
+TOOLS NOT FOUND:
+  1. Update: apt update && apt upgrade
+  2. Install: apt install <tool-name>
+  3. PATH: echo $PATH
+
+════════════════════════════════════════════════════════════════
+SAVED CREDENTIALS
+════════════════════════════════════════════════════════════════
+
+WiFi: Melton 1 - meltonone
+WiFi: TelstraBF869B - E3CF746CF4
+Gateway: 10.255.30.5
+
+════════════════════════════════════════════════════════════════
+QUICK REFERENCE CARD
+════════════════════════════════════════════════════════════════
+
+AI TOOLS:
+  ai-menu              - AI launcher
+  opencode             - OpenCode AI
+  hexstrike            - Security AI
+
+NETWORK:
+  nmap -sn 192.168.1.0/24   - Scan
+  netstat -tulpn            - Ports
+
+WIRELESS:
+  airmon-ng start wlan0    - Monitor
+  airodump-ng wlan0mon     - Scan
+
+PASSWORD:
+  chntpw -i SAM           - Windows reset
+
+FORENSICS:
+  strings file | grep pass  - Strings
+  binwalk firmware.bin     - Analyze
+
+════════════════════════════════════════════════════════════════
+END OF GUIDE
+════════════════════════════════════════════════════════════════

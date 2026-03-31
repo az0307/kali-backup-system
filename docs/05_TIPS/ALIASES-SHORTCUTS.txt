@@ -1,0 +1,241 @@
+# Advanced Aliases & Shortcuts for Pentesters
+
+## ZSH/Shell Shortcuts
+
+### Navigation
+```bash
+# Quick cd
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias ~='cd ~'
+
+# Custom dirs
+alias documents='cd ~/Documents'
+alias downloads='cd ~/Downloads'
+alias pentest='cd ~/pentest'
+
+# Kali specific
+alias ktools='cd /usr/share/kali-tools'
+alias wordlists='cd /usr/share/wordlists'
+```
+
+### Quick Scanning
+```bash
+# Nmap shortcuts
+alias nquick='nmap -sn'
+alias nscan='nmap -sV -sC'
+alias nfull='nmap -sV -sC -p-'
+alias nudp='nmap -sU'
+alias nweb='nmap --script http-enum'
+
+# Masscan
+alias mquick='masscan -p1-65535'
+alias mfast='masscan -p80,443 --rate 10000'
+
+# Network
+alias myip='curl -s ifconfig.me && echo'
+alias netstat='ss -tulpn'
+alias listen='lsof -i -P -n'
+```
+
+### Tools Shortcuts
+```bash
+# Metasploit
+alias msf='msfconsole'
+alias msfv='msfvenom'
+alias msfupdate='msfupdate'
+alias searchs='searchsploit'
+
+# Web
+alias nikto='nikto -h'
+alias dirb='dirb'
+alias sqlmap='sqlmap --batch --level=5'
+alias zap='zaproxy &'
+
+# WiFi
+alias wifiscan='airodump-ng wlan0mon'
+alias wpa='airmon-ng start wlan0'
+alias wpadown='airmon-ng stop wlan0mon'
+
+# Password
+alias hashcat='hashcat -m 0'
+alias john='john --wordlist=/usr/share/wordlists/rockyou.txt'
+alias hydra='hydra -V'
+```
+
+### Git Shortcuts
+```bash
+alias g='git'
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit -m'
+alias gp='git push'
+alias gd='git diff'
+alias gl='git log --oneline'
+alias gco='git checkout'
+alias gb='git branch'
+```
+
+### System Admin
+```bash
+alias update='apt update && apt upgrade -y'
+alias install='apt install -y'
+alias ports='netstat -tulpn | grep LISTEN'
+alias psg='ps aux | grep -v grep | grep -i -e VSZ -e COMMAND'
+alias df='df -h'
+alias du='du -h --max-depth=1'
+alias mem='free -h'
+alias cpu='lscpu | grep "Model name"'
+```
+
+## Keyboard Shortcuts
+
+### Bash/ZSH
+```bash
+# Movement
+Ctrl+A  # Beginning of line
+Ctrl+E  # End of line
+Ctrl+B  # Back one char
+Ctrl+F  # Forward one char
+Alt+B   # Back one word
+Alt+F   # Forward one word
+
+# Editing
+Ctrl+U  # Cut to beginning
+Ctrl+K  # Cut to end
+Ctrl+W  # Cut word
+Ctrl+Y  # Paste
+Ctrl+T  # Swap chars
+
+# History
+Ctrl+R  # Search history
+Ctrl+G  # Cancel search
+Ctrl+P  # Previous command
+Ctrl+N  # Next command
+
+# Jobs
+Ctrl+Z  # Background
+Ctrl+C  # Interrupt
+Ctrl+D  # Exit shell
+```
+
+### Vim Basics (for editors)
+```bash
+# Movement
+h j k l     # Left, Down, Up, Right
+w b         # Word forward/back
+0 $         # Line start/end
+gg G        # File start/end
+
+# Edit
+i a         # Insert/append
+x dd        # Delete char/line
+y p         # Copy/Paste
+u           # Undo
+Ctrl+R      # Redo
+
+# Search
+/ ?         # Forward/Back
+n N         # Next/Prev
+```
+
+### Tmux Shortcuts
+```bash
+# Session
+tmux new -s pentest      # New session
+tmux attach             # Attach
+tmux ls                 # List
+Ctrl+b d                # Detach
+
+# Windows
+Ctrl+b c                # New window
+Ctrl+b n/p              # Next/Prev
+Ctrl+b ,                # Rename
+Ctrl+b &                # Close
+
+# Panes
+Ctrl+b %                # Split vertical
+Ctrl+b "                # Split horizontal
+Ctrl+b arrows           # Navigate
+Ctrl+b ;                # Last pane
+```
+
+### Screen Shortcuts
+```bash
+screen -S pentest       # New
+screen -ls             # List
+Ctrl+a d               # Detach
+Ctrl+a n               # Next
+Ctrl+a p               # Prev
+```
+
+## Env Variables for Speed
+
+```bash
+# ~/.zshrc additions
+export PENTEST="$HOME/pentest"
+export TOOLS="/opt/tools"
+export WORDLISTS="/usr/share/wordlists"
+export DOWNLOADS="$HOME/Downloads"
+
+# Quick access function
+pentest() { cd "$PENTEST/$1" }
+tools() { cd "$TOOLS/$1" }
+```
+
+## Functions for Speed
+
+```bash
+# Quick scan
+scan() { nmap -sV -sC -p- "$1" -oN scan-"$1".nmap; }
+
+# Quick web scan
+web() { nikto -h "$1" | tee nikto-"$1".txt; }
+
+# Extract archives
+extract() { for file in "$@"; do 7z x "$file"; done; }
+
+# Quick http server
+serve() { python3 -m http.server "$1" -d "${2:-.}"; }
+
+# URL encode
+urlencode() { python3 -c "import urllib.parse; print(urllib.parse.quote('$1'))"; }
+
+# Base64 encode/decode
+b64e() { echo "$1" | base64; }
+b64d() { echo "$1" | base64 -d; }
+
+# Hash file
+hash() { echo "$1:$(sha256sum "$1" | cut -d' ' -f1)"; }
+```
+
+## Tmux Config
+
+```bash
+# ~/.tmux.conf
+set -g prefix C-a
+unbind C-b
+bind C-a send-prefix
+
+# Split
+bind | split-window -h
+bind - split-window -v
+
+# Navigation
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
+# Resize
+bind -r H resize-pane -L 5
+bind -r J resize-pane -D 5
+bind -r K resize-pane -U 5
+bind -r L resize-pane -R 5
+
+# Status
+set -g status-style bg=colour235
+set -g status-left "#S"
+set -g status-right "%H:%M %d-%b-%y"
+```

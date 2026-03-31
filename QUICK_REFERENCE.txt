@@ -1,0 +1,102 @@
+╔══════════════════════════════════════════════════════════════════╗
+║           🐉 KALI RED TEAM - QUICK COMMAND CARD 🐉             ║
+╚══════════════════════════════════════════════════════════════════╝
+
+┌──────────────────────────────────────────────────────────────┐
+│                    🚀 QUICK START                           │
+├──────────────────────────────────────────────────────────────┤
+│ cd /mnt/sf_KaliShare/scripts                               │
+│ sudo bash menu.sh              # Interactive menu            │
+│ sudo bash install-all.sh       # Install everything         │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│                    🤖 AI TOOLS                             │
+├──────────────────────────────────────────────────────────────┤
+│ opencode                        # AI coding assistant       │
+│ claude                         # Anthropic AI             │
+│ gemini --prompt "question"    # Google's AI (FREE!)       │
+│ cd /opt/hexstrike && python3 hexstrike.py  # AI pentest  │
+│ ollama run llama3             # Local AI (no internet)    │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│                    📡 WIFI HACKING                          │
+├──────────────────────────────────────────────────────────────┤
+│ sudo airmon-ng start wlan0       # Monitor mode           │
+│ sudo airodump-ng wlan0mon       # Scan networks          │
+│ sudo aireplay-ng --deauth 10 -a MAC wlan0mon  # Deauth   │
+│ sudo aircrack-ng -w wordlist capture.cap  # Crack        │
+│ sudo wash -i wlan0mon            # WPS networks          │
+│ sudo reaver -i wlan0mon -b MAC -vv  # WPS crack        │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│                    🌐 NETWORK SCANNING                       │
+├──────────────────────────────────────────────────────────────┤
+│ sudo nmap -sV -sC target.com    # Full scan              │
+│ rustscan -a target.com           # Fast scan              │
+│ sudo masscan -p1-65535 target   # All ports              │
+│ sudo arp-scan -l                # Local devices           │
+│ netdiscover -r 192.168.1.0/24   # Discover devices       │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│                    🌐 WEB TESTING                           │
+├──────────────────────────────────────────────────────────────┤
+│ nikto -h target.com              # Web vulnerabilities    │
+│ sqlmap -u target.com            # SQL injection          │
+│ gobuster dir -u target -w wordlist  # Directory bust     │
+│ dirb target.com                  # Another dir scanner   │
+│ wpscan --url target.com          # WordPress scanner     │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│                    💀 EXPLOITATION                         │
+├──────────────────────────────────────────────────────────────┤
+│ msfconsole                      # Metasploit             │
+│ searchsploit exploit           # Search exploit DB       │
+│ msfvenom -p linux/x86/shell_reverse_tcp  # Make payload  │
+│ searchsploit -m 12345          # Download exploit       │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│                    🔐 PASSWORD ATTACKS                      │
+├──────────────────────────────────────────────────────────────┤
+│ hashcat -m 22000 hash.hccapx wordlist  # WPA2            │
+│ john hash.txt --wordlist=wordlist     # JTR             │
+│ hydra -l user -P wordlist target ssh   # SSH brute       │
+│ crunch 8 12 abcdefgh -o wordlist.txt  # Generate list   │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│                    📁 FILE MANAGEMENT                       │
+├──────────────────────────────────────────────────────────────┤
+│ cd /mnt/sf_KaliShare              # Shared folder        │
+│ cd /opt/pentest-tools              # Tools               │
+│ cd /usr/share/wordlists           # Wordlists           │
+│ cd /usr/share/seclists           # SecLists            │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│                    🛡️ SYSTEM                                │
+├──────────────────────────────────────────────────────────────┤
+│ htop                            # Process monitor          │
+│ free -h                         # RAM check              │
+│ df -h                          # Disk space             │
+│ sudo systemctl status ssh        # SSH status            │
+│ sudo service ssh start           # Start SSH             │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│                    🚨 EMERGENCY                             │
+├──────────────────────────────────────────────────────────────┤
+│ sudo poweroff                    # Quick shutdown         │
+│ sudo bash /mnt/sf_KaliShare/scripts/red-button.sh  # DESTROY │
+│ Ctrl+C                          # Cancel command         │
+│ exit                            # Exit terminal         │
+└──────────────────────────────────────────────────────────────┘
+
+╔══════════════════════════════════════════════════════════════════╗
+║  ⚠️  LEGAL: Only test systems you own or have permission!  ║
+╚══════════════════════════════════════════════════════════════════╝

@@ -1,0 +1,200 @@
+# Ultimate Resource Links
+
+## 🛠️ Tools
+
+### Network Scanning
+- Nmap: https://nmap.org/
+- Masscan: https://github.com/roberthouse/masscan
+- RustScan: https://github.com/RustScan/RustScan
+
+### Web Testing
+- OWASP ZAP: https://www.zaproxy.org/
+- Burp Suite: https://portswigger.net/burp
+- SQLMap: https://sqlmap.org/
+- Nikto: https://github.com/sullo/nikto
+
+### Password
+- Hashcat: https://hashcat.net/
+- John: https://www.openwall.com/john/
+- Hydra: https://github.com/vanhauser-thc/thc-hydra
+
+### WiFi
+- Aircrack-ng: https://www.aircrack-ng.org/
+- Wifite: https://github.com/derv82/wifite2
+- Reaver: https://github.com/t6x/reaver-wps-fork
+
+### Exploitation
+- Metasploit: https://www.metasploit.com/
+- SearchSploit: https://www.exploit-db.com/searchsploits
+- PayloadsAllTheThings: https://github.com/swisskyrepo/PayloadsAllTheThings
+
+### Windows
+- Impacket: https://github.com/SecureAuthCorp/impacket
+- PowerSploit: https://github.com/PowerShellMafia/PowerSploit
+- PEASS: https://github.com/carlospolop/PEASS-ng
+
+## 📚 Learning
+
+### Platforms
+- HackTheBox: https://www.hackthebox.eu/
+- TryHackMe: https://tryhackme.com/
+- PentesterLab: https://www.pentesterlab.com/
+- Root Me: https://www.root-me.org/
+- OverTheWire: https://overthewire.org/wargames/
+
+### Books
+- The Hacker Playbook 1-3
+- Penetration Testing: A Hands-On Introduction to Hacking
+- Black Hat Python
+- Gray Hat Hacking
+- Rtfm: Red Team Field Manual
+
+### Cheat Sheets
+- https://github.com/jhentler/cheat-sheets
+- https://payatu.com/guide/
+- https://zeroaxiom.gitbook.io/
+
+## 🔍 Recon
+
+### Subdomain
+- Subfinder: https://github.com/projectdiscovery/subfinder
+- Amass: https://github.com/OWASP/Amass
+- Assetfinder: https://github.com/tomnomnom/assetfinder
+
+### HTTP
+- httpx: https://github.com/projectdiscovery/httpx
+- Katana: https://github.com/projectdiscovery/katana
+- Gau: https://github.com/lc/gau
+
+### Vulnerability
+- Nuclei: https://github.com/projectdiscovery/nuclei
+- Dalfox: https://github.com/hahwul/dalfox
+- Nmap Scripts: https://nmap.org/nsedoc/
+
+## 🖥️ Distributions
+
+### Pentesting
+- Kali Linux: https://www.kali.org/
+- ParrotOS: https://www.parrotsec.org/
+- BlackArch: https://blackarch.org/
+
+### Hardware
+- Raspberry Pi: https://www.raspberrypi.org/
+- PiKVM: https://pikvm.org/
+
+## 🤖 AI Tools
+
+### CLI
+- OpenCode: https://opencode.ai/
+- Claude: https://claude.ai/
+- Gemini: https://gemini.google.com/
+
+### Local
+- Ollama: https://ollama.ai/
+- LM Studio: https://lmstudio.ai/
+- GPT4All: https://gpt4all.io/
+
+## 🔐 Security
+
+### CVE Databases
+- NVD: https://nvd.nist.gov/
+- Exploit-DB: https://www.exploit-db.com/
+- CVE Details: https://www.cvedetails.com/
+
+### hardening
+- CIS Benchmarks: https://www.cisecurity.org/cis-benchmarks
+- NIST: https://csrc.nist.gov/
+
+## 📂 Custom USB Tools
+
+### Wordlists
+- SecLists: https://github.com/danielmiessler/SecLists
+- CrackStation: https://crackstation.net/
+- RockYou: /usr/share/wordlists/rockyou.txt
+
+### Payloads
+- Reverse Shells: https://www.revshells.com/
+- PayloadAllTheThings: /tools/PayloadsAllTheThings
+- ShellPop: https://github.com/01ghost/ShellPop
+
+## 🌍 OSINT
+
+- TheHarvester: https://github.com/vanhauser-thc/theHarvester
+- Recon-ng: https://github.com/Recon-ng/recon-ng
+- Maltego: https://www.maltego.com/
+- SpiderFoot: https://www.spiderfoot.net/
+
+## 📝 Notes
+
+- CherryTree: https://github.com/giuspen/cherrytree
+- Obsidian: https://obsidian.md/
+- Joplin: https://joplinapp.org/
+
+## 🔗 More Links
+
+### Privilege Escalation
+- Linux: https://github.com/rebootuser/LinEnum
+- Windows: https://github.com/carlospolop/hacktools
+
+### Active Directory
+- BloodHound: https://github.com/BloodHoundAD/BloodHound
+- Impacket: https://github.com/ SecureAuthCorp/impacket
+- CrackMapExec: https://github.com/PorousJ/platforms
+
+### Post-Ex
+- PowerSploit: https://github.com/PowerShellMafia/PowerSploit
+- Mimikatz: https://github.com/gentilkiwi/mimikatz
+- LaZagne: https://github.com/AlessandroZ/LaZagne
+
+### Forensics
+- Autopsy: https://www.autopsy.com/
+- Volatility: https://www.volatilityfoundation.org/
+- Binwalk: https://github.com/ReFirmLabs/binwalk
+
+## Local File Paths (on USB)
+
+```
+/scripts/           - Automation scripts
+/skills/           - Pentest guides
+/tools/             - Downloaded tools
+/docs/             - This documentation
+/wordlists/        - Password lists
+/payloads/         - Shell payloads
+/chains/           - Workflow chains
+/agents/           - AI agent configs
+```
+
+## Quick Commands
+
+```bash
+# Update tools
+./scripts/download-offline-tools.sh
+
+# Run menu
+sudo ./MENU
+
+# Quick scan
+./scripts/quick-scan.sh target
+
+# Start services
+service ssh start
+service apache2 start
+
+# Find tools
+which nmap
+which msfconsole
+which sqlmap
+```
+
+## Important Contacts
+
+```
+# Emergency
+- Security Team: 
+- Manager: 
+- Client:
+
+# Resources
+- VPN Access:
+- Lab Access:
+```

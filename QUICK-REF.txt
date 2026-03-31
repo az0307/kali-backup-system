@@ -1,0 +1,76 @@
+#!/bin/bash
+# ====================================================================
+# Quick Reference Card - Kali Live USB
+# ====================================================================
+
+echo "╔══════════════════════════════════════════════════════════════════════╗"
+echo "║                  KALI LIVE USB - QUICK REFERENCE                     ║"
+echo "╚══════════════════════════════════════════════════════════════════════╝"
+echo ""
+
+echo "━━━ NETWORK SCANNING ━━━"
+echo "  nmap -sn 192.168.1.0/24          # Find live hosts"
+echo "  nmap -sV -sC -p- 192.168.1.1     # Full scan"
+echo "  masscan -p1-65535 192.168.1.1    # Fast port scan"
+echo "  netdiscover -r 192.168.1.0/24    # ARP scan"
+echo ""
+
+echo "━━━ WIFI OPERATIONS ━━━"
+echo "  airmon-ng                         # Check wireless"
+echo "  airmon-ng start wlan0             # Monitor mode"
+echo "  airodump-ng wlan0mon              # Scan networks"
+echo "  airodump-ng -c 6 --bssid XX -w cap wlan0mon  # Capture handshake"
+echo "  aireplay-ng -0 10 -a XX wlan0mon   # Deauth"
+echo "  aircrack-ng -w wordlist.cap handshake.cap   # Crack"
+echo "  reaver -i wlan0mon -b XX -vv     # WPS attack"
+echo ""
+
+echo "━━━ PASSWORD ATTACKS ━━━"
+echo "  hydra -l user -P pass.txt ssh://IP    # SSH brute"
+echo "  hydra -L users.txt -P pass.txt IP http-post-form  # HTTP"
+echo "  hashcat -m 0 hash.txt wordlist.txt    # MD5 crack"
+echo "  john --wordlist=wordlist.txt hash     # John the Ripper"
+echo ""
+
+echo "━━━ WINDOWS TOOLS ━━━"
+echo "  responder -I eth0                  # LLMNR spoofing"
+echo "  crackmapexec smb 192.168.1.0/24    # SMB enum"
+echo "  ldapdomaindump 192.168.1.1         # LDAP"
+echo "  mimikatz                            # Credential dump"
+echo "  secretsdump.py user:pass@target     # SAM dump"
+echo ""
+
+echo "━━━ WEB TESTING ━━━"
+echo "  nikto -h http://target             # Scan"
+echo "  dirb http://target /usr/share/wordlists/dirb/*.txt"
+echo "  sqlmap -u 'http://target/?id=1'   # SQLi"
+echo "  xsser --url 'http://target'       # XSS"
+echo ""
+
+echo "━━━ SKELETON KEY (Windows Password Reset) ━━━"
+echo "  cd /media/kali/SKELETON/scripts/skeleton-key"
+echo "  sudo ./start.sh"
+echo "  # Select: 1=Reset, 2=Set Password, 3=Promote Admin"
+echo ""
+
+echo "━━━ AI TOOLS ━━━"
+echo "  opencode                           # OpenCode AI"
+echo "  gemini                            # Gemini CLI"
+echo "  grok \"question\"                   # Grok CLI"
+echo "  tars                              # Agent TARS"
+echo ""
+
+echo "━━━ SERVICES ━━━"
+echo "  service ssh start                 # SSH"
+echo "  service apache2 start             # HTTP"
+echo "  service postgresql start          # Database"
+echo "  msfconsole                        # Metasploit"
+echo ""
+
+echo "━━━ QUICK COMMANDS ━━━"
+echo "  ifconfig / ip addr                # Network info"
+echo "  arp-scan -l                       # Local devices"
+echo "  netstat -tulpn                    # Listening ports"
+echo "  ps aux                            # Processes"
+echo "  ls -la /usr/share/nmap/scripts/   # NSE scripts"
+echo ""

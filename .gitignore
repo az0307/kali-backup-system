@@ -1,0 +1,40 @@
+# Large directories (Kali Live system - keep locally, not in git)
+pool/
+firmware/
+install.amd/
+isolinux/
+pics/
+live/
+tools/
+dists/
+
+# Binaries and large files
+*.iso
+*.img
+*.bin
+*.deb
+*.zip
+*.tar.gz
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Large media
+*.png
+*.jpg
+*.gif
+*.mp4
+
+# Build outputs
+dist/
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+
+# Temporary
+*.tmp
+*.log

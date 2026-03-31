@@ -1,0 +1,35 @@
+================================================================================
+                    DESKTOP KALI - QUICK START
+================================================================================
+
+## USB is BOOTABLE! 
+
+## TO INSTALL:
+
+1. Plug USB into Desktop PC
+2. Turn on Desktop, press F12 for boot menu
+3. Select USB to boot
+4. Choose "Install" - follow prompts
+5. Use Telstra dongle for internet during install
+
+## POST-INSTALL:
+
+Run these commands after Kali is installed:
+
+```bash
+# Network setup
+sudo bash /media/usb/scripts-desktop/desktop-network.sh
+
+# Full setup (tools + agents)
+sudo bash /media/usb/scripts-desktop/desktop-full-setup.sh
+
+# Test connection
+ping 192.168.1.100
+```
+
+## NETWORK:
+- Desktop IP: 192.168.1.200
+- Gateway: 192.168.1.100
+- SSH: ssh root@192.168.1.200
+
+================================================================================

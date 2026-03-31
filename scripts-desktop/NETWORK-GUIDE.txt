@@ -1,0 +1,37 @@
+# ================================================
+# KALI LIVE USB - NETWORK SETUP GUIDE
+# ================================================
+
+## YOUR WIFI CREDENTIALS
+
+### Network 1: Melton 1
+- Password: meltonone
+
+### Network 2: TelstraBF869B
+- Password: E3CF746CF4
+
+## CONNECTING IN KALI
+
+### Option 1: Command Line
+```bash
+# Find wireless interface
+iwconfig
+
+# Connect to Melton 1
+nmcli dev wifi connect "Melton 1" password "meltonone"
+```
+
+### Option 2: Desktop GUI
+- Click network icon
+- Select Melton 1
+- Enter password: meltonone
+
+## THE 8-DIGIT CODE YOU LOST
+
+This was the WPS PIN. To find again:
+1. Go to http://10.255.30.5 (router admin)
+2. Login with router credentials
+3. Find: Wireless > WPS > PIN
+
+## OR JUST USE THE PASSWORD!
+You don't need WPS - just use: meltonone
