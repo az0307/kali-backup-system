@@ -17,12 +17,22 @@ rand_mac(){
 }
 
 spoof_mac(){
+  ip link show "$IFACE" >/dev/null 2>&1 || { echo "[!] $IFACE not found — no interface to spoof"; exit 1; }
   local MAC; MAC="$(rand_mac)"
   ip link set "$IFACE" down 2>/dev/null || ifconfig "$IFACE" down 2>/dev/null || true
   if ip link set "$IFACE" address "$MAC" 2>/dev/null; then :; \
     elif command -v macchanger >/dev/null; then macchanger -m "$MAC" "$IFACE" >/dev/null; fi
   ip link set "$IFACE" up 2>/dev/null || ifconfig "$IFACE" up 2>/dev/null || true
-  echo "[+] $IFACE MAC → $MAC"
+  # VERIFY — as with wifi-audit.sh's monitor-mode check, don't trust that the
+  # commands above ran; confirm the interface actually reports the new MAC.
+  local NOW; NOW="$(ip -o link show "$IFACE" 2>/dev/null | grep -oE 'link/ether [0-9a-f:]+' | awk '{print $2}')"
+  if [[ "${NOW,,}" == "$MAC" ]]; then
+    echo "[+] $IFACE MAC → $MAC (confirmed)"
+  else
+    echo "[!] MAC change did NOT take effect — $IFACE is still ${NOW:-unknown}."
+    echo "    install macchanger, or set the address manually."
+    exit 1
+  fi
   echo "    (NetHunter app → MAC Changer does this in the GUI too)"
 }
 

@@ -28,8 +28,15 @@ lock(){
   local DIR="${1:?usage: vault.sh lock <dir>}"
   [[ -d "$DIR" ]] || { echo "[!] $DIR is not a directory"; exit 1; }
   [[ -f "$PUB_FILE" ]] || { echo "[!] run 'vault.sh init' first"; exit 1; }
-  local PUB OUT; PUB="$(cat "$PUB_FILE")"; OUT="${DIR%/}.tar.age"
-  tar -cf - "$DIR" | age -r "$PUB" -o "$OUT"
+  local PUB OUT PARENT BASE
+  PUB="$(cat "$PUB_FILE")"
+  DIR="${DIR%/}"
+  OUT="${DIR}.tar.age"
+  # tar relative to the parent, storing only the basename as the member name.
+  # (tar -cf - "$DIR" with an absolute $DIR would strip the leading '/' and
+  # bake the whole absolute path into the archive — see unlock below.)
+  PARENT="$(cd "$(dirname "$DIR")" && pwd)"; BASE="$(basename "$DIR")"
+  tar -C "$PARENT" -cf - "$BASE" | age -r "$PUB" -o "$OUT"
   echo "[+] encrypted → $OUT"
   # overwrite file contents where possible, then remove the plaintext tree
   find "$DIR" -type f -exec shred -u {} + 2>/dev/null || true
@@ -40,7 +47,10 @@ lock(){
 unlock(){
   local FILE="${1:?usage: vault.sh unlock <file.tar.age>}"
   [[ -f "$FILE" ]] || { echo "[!] $FILE not found"; exit 1; }
-  age -d -i "$KEY" "$FILE" | tar -xf -
+  # extract next to the archive, not into whatever the caller's cwd happens to
+  # be — matches lock's basename-only archive layout and what we report below.
+  local DEST_PARENT; DEST_PARENT="$(cd "$(dirname "$FILE")" && pwd)"
+  age -d -i "$KEY" "$FILE" | tar -C "$DEST_PARENT" -xf -
   echo "[+] decrypted → ${FILE%.tar.age}/"
 }
 

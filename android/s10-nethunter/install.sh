@@ -24,11 +24,18 @@ done
 
 # --- make sure ~/bin is on PATH (idempotent across zsh + bash) ---
 if ! printf '%s' "$PATH" | tr ':' '\n' | grep -qx "$DEST"; then
+  ADDED=""
   for rc in "$HOME/.zshrc" "$HOME/.bashrc"; do
     [[ -f "$rc" ]] || continue
     grep -q 'HOME/bin' "$rc" || echo 'export PATH="$HOME/bin:$PATH"' >> "$rc"
+    ADDED=1
   done
-  echo "[*] added ~/bin to PATH — reload with:  exec \$SHELL"
+  if [[ -n "$ADDED" ]]; then
+    echo "[*] added ~/bin to PATH — reload with:  exec \$SHELL"
+  else
+    echo "[!] no ~/.zshrc or ~/.bashrc yet — run setup-dotfiles.sh first, or add manually:"
+    echo "    export PATH=\"\$HOME/bin:\$PATH\""
+  fi
 fi
 
 # --- stand up the Arsenal dashboard + Gemini CLI (folded-in cockpit setup) ---
