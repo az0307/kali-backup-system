@@ -38,3 +38,9 @@ node_modules/
 # Temporary
 *.tmp
 *.log
+
+# Local network credentials and captured wireless handshakes
+/wifi-passwords/NETWORK-CREDENTIALS.txt
+*.pcap
+*.pcapng
+*.cap
