@@ -52,6 +52,28 @@ show_banner() {
     echo ""
 }
 
+# Device setups — the three-device fleet
+show_device_setups() {
+    clear
+    local docs="$(dirname "$0")/docs/07_DEVICE_SETUPS"
+    local scripts="$(dirname "$0")/scripts"
+    echo -e "${BLUE}╔══════════════════════════════════════════════════════════╗${NC}"
+    echo -e "${BLUE}║        DEVICE SETUPS - The Three-Device Fleet           ║${NC}"
+    echo -e "${BLUE}╚══════════════════════════════════════════════════════════╝${NC}"
+    echo ""
+    echo -e "${CYAN}Guides${NC} (${docs}):"
+    echo -e "  ${WHITE}README.md${NC}              Fleet overview + build order + topology"
+    echo -e "  ${WHITE}S10_KALI_NETHUNTER.md${NC}  Galaxy S10 field pentest rig"
+    echo -e "  ${WHITE}OPPO_DAILY_DRIVER.md${NC}   Oppo hardened daily driver (non-root)"
+    echo -e "  ${WHITE}HP_MINI_G9_AI.md${NC}       HP Mini G9 AI brain + command center"
+    echo ""
+    echo -e "${CYAN}Provisioning scripts${NC} (${scripts}):"
+    echo -e "  ${GREEN}bash scripts/setup-hp-mini-g9.sh${NC}      # AI brain (Ubuntu host)"
+    echo -e "  ${GREEN}bash scripts/setup-s10-nethunter.sh${NC}   # S10 (run in NetHunter chroot)"
+    echo ""
+    echo -e "${YELLOW}Both scripts accept --help for staged options.${NC}"
+}
+
 # Main menu
 main_menu() {
     show_banner
@@ -83,6 +105,7 @@ main_menu() {
     echo -e "${GREEN}  ${WHITE}[N]${NC}  Network Status     - Current network info"
     echo -e "${GREEN}  ${WHITE}[I]${NC}  System Info       - Full system details"
     echo ""
+    echo -e "${GREEN}  ${WHITE}[D]${NC}  Device Setups      - S10 NetHunter / Oppo / HP Mini G9 fleet"
     echo -e "${GREEN}  ${WHITE}[U]${NC}  Update Tools       - Update Kali tools"
     echo -e "${GREEN}  ${WHITE}[X]${NC}  Exit${NC}"
     echo ""
@@ -277,6 +300,7 @@ while true; do
         h|H) show_reference; echo "Press Enter..."; read ;;
         n|N) show_network; echo "Press Enter..."; read ;;
         i|I) bash /scripts-desktop/system-info.sh ;;
+        d|D) show_device_setups; echo "Press Enter..."; read ;;
         u|U) apt update && apt upgrade -y ;;
         x|X) echo -e "${GREEN}Goodbye!${NC}"; exit 0 ;;
         *) echo "Invalid option" ;;
