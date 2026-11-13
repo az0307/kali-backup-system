@@ -13,12 +13,12 @@ Purpose of WPS PIN:
 
 Your Networks:
 1. Melton 1
-   Password: meltonone
-   WPS PIN: [The 8-digit code you see in router admin]
+   Password: [stored securely]
+   WPS PIN: [stored securely]
 
 2. TelstraBF869B
-   Password: E3CF746CF4
-   WPS PIN: [Likely different - check Telstra router admin]
+   Password: [stored securely]
+   WPS PIN: [stored securely]
 
 How to Use WPS PIN:
 On Windows:

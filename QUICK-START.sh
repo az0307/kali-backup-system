@@ -26,9 +26,14 @@ fi
 # STEP 1: NETWORK SETUP
 # ============================================================
 echo -e "${YELLOW}[1] NETWORK SETUP${NC}"
-echo "Connecting to WiFi..."
-nmcli dev wifi connect "Melton 1" password "meltonone" 2>/dev/null
-echo -e "${GREEN}✓ Connected to Melton 1${NC}"
+read -r -p "Wi-Fi network name (leave blank to use existing connection): " ssid
+if [[ -n "$ssid" ]]; then
+  if ! nmcli --ask device wifi connect "$ssid"; then
+    echo -e "${RED}Wi-Fi connection failed.${NC}" >&2
+    exit 1
+  fi
+  echo -e "${GREEN}✓ Wi-Fi connected${NC}"
+fi
 echo ""
 
 # ============================================================
@@ -67,11 +72,9 @@ echo "Gateway: $(ip route | grep default | awk '{print $3}')"
 echo ""
 
 # ============================================================
-# STEP 6: SHOW SAVED CREDENTIALS
+# STEP 6: CREDENTIAL STORAGE
 # ============================================================
-echo -e "${YELLOW}[6] SAVED CREDENTIALS${NC}"
-echo "Melton 1: meltonone"
-echo "TelstraBF869B: E3CF746CF4"
+echo "Store network credentials in a password manager, not this repository."
 echo ""
 
 # ============================================================

@@ -247,8 +247,8 @@ TOOLS NOT FOUND:
 SAVED CREDENTIALS
 ════════════════════════════════════════════════════════════════
 
-WiFi: Melton 1 - meltonone
-WiFi: TelstraBF869B - E3CF746CF4
+WiFi: Melton 1 - [stored securely]
+WiFi: TelstraBF869B - [stored securely]
 Gateway: 10.255.30.5
 
 ════════════════════════════════════════════════════════════════

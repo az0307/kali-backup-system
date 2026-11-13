@@ -237,10 +237,10 @@ Desktop Target: 192.168.1.200
 ### WiFi Credentials
 ```
 Network: Melton 1
-Password: meltonone
+Password: [stored securely]
 
 Network: TelstraBF869B
-Password: E3CF746CF4
+Password: [stored securely]
 ```
 
 ### Adapter
